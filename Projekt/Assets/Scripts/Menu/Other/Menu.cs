@@ -36,11 +36,15 @@ public class Menu : MonoBehaviour {
     [SerializeField]
     GameObject SpellsCanvas;
     GameObject ActiveCanvas;
-    [String("Skill trees lists:")]
+    [String("Skill trees containers:")]
     [SerializeField]
     List<GameObject> OffSkillTrees;
     [SerializeField]
     List<GameObject> DeffSkillTrees;
+    [SerializeField]
+    GameObject OffTreeGameObject;
+    [SerializeField]
+    GameObject DeffTreeGameObject;
     [String("Tree GameObject references:")]
     [SerializeField]
     GameObject FOR;
@@ -48,7 +52,7 @@ public class Menu : MonoBehaviour {
     GameObject TOR;
     [SerializeField]
     GameObject ED;
-    GameObject AOT, ADT;
+    GameObject AOT, ADT, TREE;
     NetworkLobbyManager LobbyManager;
     NetworkLobbyManagerScript LobbyScript;
     [String("Lobby list spaces:")]
@@ -61,15 +65,14 @@ public class Menu : MonoBehaviour {
     GameObject AfterConnect;
     [SerializeField]
     GameObject StateText;
-    [String("DropDowns references:")]
-    [SerializeField]
-    Dropdown OffType;
-    [SerializeField]
-    Dropdown OffElement;
-    [SerializeField]
-    Dropdown DeffType;
-    [SerializeField]
-    Dropdown DeffElement;
+    [String("UI elements references:")]
+    public Button Off1;
+    public Button Off2;
+    public Button Off3;
+    public Button Deff1;
+    [HideInInspector]
+    public string OffType, OffElement, DeffType, DeffElement;
+    
     void Awake()
     {
         HostingCanvas.SetActive(false);
@@ -86,16 +89,31 @@ public class Menu : MonoBehaviour {
         PlayerPrefs.SetInt("Spell", 1);
         if (PlayerPrefs.HasKey("AOT")) 
         {
-            AOT = OffSkillTrees[PlayerPrefs.GetInt("AOT")];
-            OffElement.value = PlayerPrefs.GetInt("AOT");
+            UpdateOffTree();
         }
         else AOT = FOR;
         if (PlayerPrefs.HasKey("ADT")) 
         {
-            ADT = DeffSkillTrees[PlayerPrefs.GetInt("ADT")];
-            DeffElement.value = PlayerPrefs.GetInt("ADT");
+            UpdateDeffTree();
         }
         else ADT = ED;
+
+        if (PlayerPrefs.HasKey("OffType")) OffType = PlayerPrefs.GetString("OffType");
+        else OffType = "Range";
+
+        if (PlayerPrefs.HasKey("DeffType")) DeffType = PlayerPrefs.GetString("DeffType");
+        else DeffType = "Range";
+
+        if (PlayerPrefs.HasKey("OffElement")) OffElement = PlayerPrefs.GetString("OffElement");
+        else OffElement = "Fire";
+
+        if (PlayerPrefs.HasKey("DeffElement")) OffElement = PlayerPrefs.GetString("DeffElement");
+        else DeffElement = "Earth";
+
+        if (!PlayerPrefs.HasKey("Off1")) PlayerPrefs.SetString("Off1", "");
+        if (!PlayerPrefs.HasKey("Off2")) PlayerPrefs.SetString("Off2", "");
+        if (!PlayerPrefs.HasKey("Off3")) PlayerPrefs.SetString("Off3", "");
+        if (!PlayerPrefs.HasKey("Deff1")) PlayerPrefs.SetString("Deff1", "");
     }
 
     //Menu hostowania
@@ -137,8 +155,8 @@ public class Menu : MonoBehaviour {
         ActiveCanvas.SetActive(false);
         SpellsCanvas.SetActive(true);
         ActiveCanvas = SpellsCanvas;
-        AOT.SetActive(true);
-        ADT.SetActive(true);
+        if(AOT != null) AOT.SetActive(true);
+        if(ADT != null) ADT.SetActive(true);
     }
     //Wyjście z gry
     public void Quit()
@@ -163,58 +181,92 @@ public class Menu : MonoBehaviour {
     //Przykład kodowania dla zasięgowego ofensywnego drzewka ognia to: F(ire)O(ffensive)R(ange), czyli FOR
     //AOT i ADT [ A(ctive)O(ffensive)T(ree) i A(ctive)D(evensive)T(ree) służą do wyłączania obecnie włączonego drzewka
     //Dodatkowym ułatwieniem powinien być fakt że nazwa funkcji w której użyty jest skrót jest jego rozwinięciem
+    
+    //Funkcja do wyświetlania okienka wyboru spelli
+    public void ActivateOffTree()
+    {
+        if(TREE != null) TREE.SetActive(false);
+        OffTreeGameObject.SetActive(true);
+        TREE = OffTreeGameObject;
+    }
+    public void ActivateDeffTree()
+    {
+        if(TREE != null) TREE.SetActive(false);
+        DeffTreeGameObject.SetActive(true);
+        TREE = DeffTreeGameObject;
+    }
 
-    //2 funkcje do aktualizacji obecnych wartości które są w DropDownach
+    //Zmiana wyświetalnego drzewka
     public void UpdateOffTree()
     {
-        TypeInput = OffType.options[OffType.value].text;
-        ElementInput = OffElement.options[OffElement.value].text;
-        ChangeOffTree(TypeInput, ElementInput);
+        if(OffType == "Range")
+        {
+            if (OffElement == "Fire") FireOffRange();
+            if (OffElement == "Thunder") ThunderOffRange();
+        }
+        if(OffType == "Melee")
+        {
+            if(AOT != null) AOT.SetActive(false);
+        }
     }
     public void UpdateDeffTree()
     {
-        ElementInput = DeffElement.options[DeffElement.value].text;
-        ChangeDeffTree(ElementInput);
-    }
-
-    //2 funkcje do wywowałania odpowiedniej funkcji zmiany drzewka
-    void ChangeOffTree(string Type, string Element)
-    {
-        if (Type == "Range")
+        if(OffType == "Range")
         {
-            if (Element == "Fire") FireOffRange();
-            if (Element == "Thunder") ThunderOffRange();
+            if (OffElement == "Earth") EarthDeffRange();
         }
-        if(Type == "Melee")
+        if(OffType == "Melee")
         {
-
+            if(AOT != null) AOT.SetActive(false);
         }
     }
-    public void ChangeDeffTree(string Element)
+
+    //Funkcje zapisu wybranego spella
+    public void Offensive(Button spell)
     {
-        if (Element == "Earth") EarthDeff();
+        if(PlayerPrefs.GetString("ChoosingOff") == "Off1")
+        {
+            Off1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            Debug.Log("OFF1");
+            PlayerPrefs.SetString("Off1", spell.name);
+        }
+        if (PlayerPrefs.GetString("ChoosingOff") == "Off2")
+        {
+            Off2.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            PlayerPrefs.SetString("Off2", spell.name);
+        }
+        if (PlayerPrefs.GetString("ChoosingOff") == "Off3")
+        {
+            Off3.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            PlayerPrefs.SetString("Off3", spell.name);
+        }
+    }
+    public void Deffensive(Button spell)
+    {
+        if(PlayerPrefs.GetString("ChoosingDeff") == "Deff1")
+        {
+            Deff1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            PlayerPrefs.SetString("Deff1", spell.name);
+        }
     }
     
     //Funckje zmiany drzewka
     void FireOffRange()
     {
-        AOT.SetActive(false);
+        if(AOT != null) AOT.SetActive(false);
         FOR.SetActive(true);
-        PlayerPrefs.SetInt("AOT", 0);
         AOT = FOR;
     }
     void ThunderOffRange()
     {
-        AOT.SetActive(false);
+        if (AOT != null) AOT.SetActive(false);
         TOR.SetActive(true);
-        PlayerPrefs.SetInt("AOT", 1);
         AOT = TOR;
     }
-    void EarthDeff()
+    void EarthDeffRange()
     {
-        ADT.SetActive(false);
+        if (ADT != null) ADT.SetActive(false);
         ED.SetActive(true);
-        PlayerPrefs.SetInt("ADT", 0);
         ADT = ED;
     }
     

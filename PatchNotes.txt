@@ -1,0 +1,9 @@
+Opis patcha(28.01.2018):
+Zrobi³em podstawê systemu wyboru spelli. Obecnie jeszcze mo¿na wybraæ do drzewka ofensywnego 
+lub defensywnego wszystkie dostêpne ¿ywio³y zamiast 1, powtórzyæ kilka spelli w róznych slotach i kilka innych rzeczy. 
+Wszystkie potrzebne funkcje tego typu zostan¹ dodane. Dodatkowo funkcjonuje ju¿ system zapisu wybranych spelli w prefsach, 
+wiêc zosta³o ogónie bardzo ma³o do zrobienia aby ca³y system dzia³a³ jako tako poprawnie.
+
+Dodano:
+- Podstawy systemu wyboru spelli
+- Kilka nowych sprite'ów
