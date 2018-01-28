@@ -12,6 +12,10 @@ public class EarthSpells : NetworkBehaviour {
     [String("Spells prefabs:")]
     [SerializeField]
     GameObject earthwallPrefab;
+    void Start()
+    {
+        EarthWallDistance = 12f;   
+    }
 	//Wszystkie komentarze odnośnie działania skryptu znajdują się w skrypcie FireSpells;
 	void Update () {
         CmdCooldowns();
