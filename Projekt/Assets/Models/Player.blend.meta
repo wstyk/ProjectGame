@@ -1,0 +1,219 @@
+fileFormatVersion: 2
+guid: 4e62b01ea1909244f8acbe9c3b5ed853
+timeCreated: 1512223196
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Head_MeshPart0
+    100002: Head_MeshPart1
+    100004: Head_MeshPart10
+    100006: Head_MeshPart11
+    100008: Head_MeshPart12
+    100010: Head_MeshPart13
+    100012: Head_MeshPart14
+    100014: Head_MeshPart15
+    100016: Head_MeshPart16
+    100018: Head_MeshPart17
+    100020: Head_MeshPart18
+    100022: Head_MeshPart19
+    100024: Head_MeshPart2
+    100026: Head_MeshPart20
+    100028: Head_MeshPart21
+    100030: Head_MeshPart22
+    100032: Head_MeshPart3
+    100034: Head_MeshPart4
+    100036: Head_MeshPart5
+    100038: Head_MeshPart6
+    100040: Head_MeshPart7
+    100042: Head_MeshPart8
+    100044: Head_MeshPart9
+    100046: //RootNode
+    100048: Head_MeshPart23
+    100050: Head_MeshPart24
+    100052: Head_MeshPart25
+    400000: Head_MeshPart0
+    400002: Head_MeshPart1
+    400004: Head_MeshPart10
+    400006: Head_MeshPart11
+    400008: Head_MeshPart12
+    400010: Head_MeshPart13
+    400012: Head_MeshPart14
+    400014: Head_MeshPart15
+    400016: Head_MeshPart16
+    400018: Head_MeshPart17
+    400020: Head_MeshPart18
+    400022: Head_MeshPart19
+    400024: Head_MeshPart2
+    400026: Head_MeshPart20
+    400028: Head_MeshPart21
+    400030: Head_MeshPart22
+    400032: Head_MeshPart3
+    400034: Head_MeshPart4
+    400036: Head_MeshPart5
+    400038: Head_MeshPart6
+    400040: Head_MeshPart7
+    400042: Head_MeshPart8
+    400044: Head_MeshPart9
+    400046: //RootNode
+    400048: Head_MeshPart23
+    400050: Head_MeshPart24
+    400052: Head_MeshPart25
+    2300000: Head_MeshPart0
+    2300002: Head_MeshPart1
+    2300004: Head_MeshPart10
+    2300006: Head_MeshPart11
+    2300008: Head_MeshPart12
+    2300010: Head_MeshPart13
+    2300012: Head_MeshPart14
+    2300014: Head_MeshPart15
+    2300016: Head_MeshPart16
+    2300018: Head_MeshPart17
+    2300020: Head_MeshPart18
+    2300022: Head_MeshPart19
+    2300024: Head_MeshPart2
+    2300026: Head_MeshPart20
+    2300028: Head_MeshPart21
+    2300030: Head_MeshPart22
+    2300032: Head_MeshPart3
+    2300034: Head_MeshPart4
+    2300036: Head_MeshPart5
+    2300038: Head_MeshPart6
+    2300040: Head_MeshPart7
+    2300042: Head_MeshPart8
+    2300044: Head_MeshPart9
+    2300046: Head_MeshPart23
+    2300048: Head_MeshPart24
+    2300050: Head_MeshPart25
+    2300052: //RootNode
+    3300000: Head_MeshPart0
+    3300002: Head_MeshPart1
+    3300004: Head_MeshPart10
+    3300006: Head_MeshPart11
+    3300008: Head_MeshPart12
+    3300010: Head_MeshPart13
+    3300012: Head_MeshPart14
+    3300014: Head_MeshPart15
+    3300016: Head_MeshPart16
+    3300018: Head_MeshPart17
+    3300020: Head_MeshPart18
+    3300022: Head_MeshPart19
+    3300024: Head_MeshPart2
+    3300026: Head_MeshPart20
+    3300028: Head_MeshPart21
+    3300030: Head_MeshPart22
+    3300032: Head_MeshPart3
+    3300034: Head_MeshPart4
+    3300036: Head_MeshPart5
+    3300038: Head_MeshPart6
+    3300040: Head_MeshPart7
+    3300042: Head_MeshPart8
+    3300044: Head_MeshPart9
+    3300046: Head_MeshPart23
+    3300048: Head_MeshPart24
+    3300050: Head_MeshPart25
+    3300052: //RootNode
+    4300000: Head_MeshPart0
+    4300002: Head_MeshPart1
+    4300004: Head_MeshPart2
+    4300006: Head_MeshPart3
+    4300008: Head_MeshPart4
+    4300010: Head_MeshPart5
+    4300012: Head_MeshPart6
+    4300014: Head_MeshPart7
+    4300016: Head_MeshPart8
+    4300018: Head_MeshPart9
+    4300020: Head_MeshPart10
+    4300022: Head_MeshPart11
+    4300024: Head_MeshPart12
+    4300026: Head_MeshPart13
+    4300028: Head_MeshPart14
+    4300030: Head_MeshPart15
+    4300032: Head_MeshPart16
+    4300034: Head_MeshPart17
+    4300036: Head_MeshPart18
+    4300038: Head_MeshPart19
+    4300040: Head_MeshPart20
+    4300042: Head_MeshPart21
+    4300044: Head_MeshPart22
+    4300046: Head_MeshPart23
+    4300048: Head_MeshPart24
+    4300050: Head_MeshPart25
+    4300052: Head
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
