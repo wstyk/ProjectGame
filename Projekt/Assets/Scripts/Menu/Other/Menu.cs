@@ -227,7 +227,6 @@ public class Menu : MonoBehaviour {
         if(PlayerPrefs.GetString("ChoosingOff") == "Off1")
         {
             Off1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
-            Debug.Log("OFF1");
             PlayerPrefs.SetString("Off1", spell.name);
         }
         if (PlayerPrefs.GetString("ChoosingOff") == "Off2")
