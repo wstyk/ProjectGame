@@ -10,6 +10,7 @@ public class DeffType : MonoBehaviour {
     {
         menu.DeffType = gameObject.name;
         PlayerPrefs.SetString("DeffType", gameObject.name);
+        PlayerPrefs.Save();
         menu.UpdateDeffTree();
     }
 }

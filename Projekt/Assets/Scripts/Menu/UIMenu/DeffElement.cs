@@ -9,6 +9,7 @@ public class DeffElement : MonoBehaviour {
     {
         menu.DeffElement = gameObject.name;
         PlayerPrefs.SetString("DeffElement", gameObject.name);
+        PlayerPrefs.Save();
         menu.UpdateDeffTree();
     }
 }

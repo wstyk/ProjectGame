@@ -10,6 +10,7 @@ public class OffElement : MonoBehaviour {
     {
         menu.OffElement = gameObject.name;
         PlayerPrefs.SetString("OffElement", gameObject.name);
+        PlayerPrefs.Save();
         menu.UpdateOffTree();
     }
 }

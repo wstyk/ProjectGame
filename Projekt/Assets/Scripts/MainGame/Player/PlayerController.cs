@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour {
+#if UNITY_EDITOR
     [String("Player speed:")]
+#endif
     [SerializeField]
     float ForwardSpeed;
     [SerializeField]
     float SideSpeed;
+#if UNITY_EDITOR
     [String("Camera references:")]
+#endif
     [SerializeField]
     GameObject cam;
 	

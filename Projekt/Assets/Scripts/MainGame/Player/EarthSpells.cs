@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class EarthSpells : NetworkBehaviour {
+#if UNITY_EDITOR
     [String("Camera reference:")]
+#endif
     [SerializeField]
     GameObject PlayerCam;
     float EarthWallCD;
     float EarthWallDistance;
+#if UNITY_EDITOR
     [String("Spells prefabs:")]
+#endif
     [SerializeField]
     GameObject earthwallPrefab;
     void Start()

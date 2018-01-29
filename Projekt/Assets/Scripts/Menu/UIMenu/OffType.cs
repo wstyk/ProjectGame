@@ -10,6 +10,7 @@ public class OffType : MonoBehaviour {
     {
         menu.OffType = gameObject.name;
         PlayerPrefs.SetString("OffType", gameObject.name);
+        PlayerPrefs.Save();
         menu.UpdateOffTree();
     }
 }

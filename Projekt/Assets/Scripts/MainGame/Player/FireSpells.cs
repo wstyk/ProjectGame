@@ -4,14 +4,18 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class FireSpells : NetworkBehaviour {
+#if UNITY_EDITOR
     [String("Camera reference:")]
+#endif
     [SerializeField]
     GameObject PlayerCam;
     float FireBallCD;
     float FlameCD;
     float FireBallDistance;
     float FlameThrowerDistance;
+#if UNITY_EDITOR
     [String("Spells prefab reference:")]
+#endif
     [SerializeField]
     GameObject fireBallPrefab;
     [SerializeField]

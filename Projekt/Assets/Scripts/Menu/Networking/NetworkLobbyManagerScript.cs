@@ -10,10 +10,14 @@ public class NetworkLobbyManagerScript : NetworkLobbyManager {
     NetworkLobbyPlayer LobbyPlayer;
     Menu menu;
     ButtonScript btnscript;
+#if UNITY_EDITOR
     [String("Lobby list spaces:")]
+#endif
     public GameObject RoomList;
     public GameObject PlayerList;
+#if UNITY_EDITOR
     [String("Prefab references:")]
+#endif
     [SerializeField]
     Button PlayerButton;
     [SerializeField]
@@ -22,12 +26,16 @@ public class NetworkLobbyManagerScript : NetworkLobbyManager {
     GameObject StateText;
     [SerializeField]
     GameObject FailedToText;
+#if UNITY_EDITOR
     [String("Lists:")]
+#endif
     [SerializeField]
     List<MatchInfoSnapshot> Matches;
     MatchInfoSnapshot CurrentMatch;
     List<bool> Players;
+#if UNITY_EDITOR
     [String("Match info fields:")]
+#endif
     public string MatchPass;
     public string MatchName;
     bool ready;

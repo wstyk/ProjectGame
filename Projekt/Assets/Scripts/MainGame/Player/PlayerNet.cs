@@ -6,30 +6,40 @@ using UnityEngine.UI;
 
 public class PlayerNet : NetworkBehaviour
 {
+#if UNITY_EDITOR
     [String("Camera reference:")]
+#endif
     [SerializeField]
     GameObject PlayerCam;
     GameObject MainCam;
+#if UNITY_EDITOR
     [String("Player components references:")]
+#endif
     [SerializeField]
     GameObject playerModel;
     [SerializeField]
     Rigidbody playerRigidbody;
     [SerializeField]
     Collider playerCollider;
+#if UNITY_EDITOR
     [String("Player strting values:")]
+#endif
     [SerializeField]
     float respawnTime;
     [SerializeField]
     float maxHP;
+#if UNITY_EDITOR
     [String("Prefab references:")]
+#endif
     [SerializeField]
     GameObject RemoteText;
     [SerializeField]
     Text UIText;
     [SerializeField]
     GameObject TextMesh;
+#if UNITY_EDITOR
     [String("Canvas reference:")]
+#endif
     [SerializeField]
     GameObject LocalCanvas;
     GameObject[] SpawnPoints;
@@ -61,10 +71,8 @@ public class PlayerNet : NetworkBehaviour
         LocalCanvas.SetActive(truefalse);
         TextMesh.GetComponent<MeshRenderer>().enabled = false;
         UIText.text = maxHP + "/" + maxHP;
-        gameObject.GetComponent<FireSpells>().enabled = truefalse;
-        gameObject.GetComponent<EarthSpells>().enabled = truefalse;
-        gameObject.GetComponent<ThunderSpells>().enabled = truefalse;
         gameObject.GetComponent<PlayerController>().enabled = truefalse;
+        ActivateSpells();
     }
     //aktywowanie wspólnych rzeczy
     void Shared(bool truefalse)
@@ -83,6 +91,21 @@ public class PlayerNet : NetworkBehaviour
     void Remote(bool truefalse)
     {
 
+    }
+    void ActivateSpells()
+    {
+        if(PlayerPrefs.GetString("OffElement") == "Fire" || PlayerPrefs.GetString("DeffElement") == "Fire")
+        {
+            gameObject.GetComponent<FireSpells>().enabled = true;
+        }
+        if (PlayerPrefs.GetString("OffElement") == "Thunder" || PlayerPrefs.GetString("DeffElement") == "Thunder")
+        {
+            gameObject.GetComponent<ThunderSpells>().enabled = true;
+        }
+        if (PlayerPrefs.GetString("OffElement") == "Earth" || PlayerPrefs.GetString("DeffElement") == "Earth")
+        {
+            gameObject.GetComponent<EarthSpells>().enabled = true;
+        }
     }
     //!!!KONIEC PIERWSZEGO URUCHOMIENIA!!!
 

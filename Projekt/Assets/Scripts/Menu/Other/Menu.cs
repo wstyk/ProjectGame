@@ -9,7 +9,9 @@ public class Menu : MonoBehaviour {
     //Ten skrypt jest używany do poruszania się po menu,
     //jeżeli chcecie coś dodać do menu to tutaj powinny znajdować się do tego skrypty, 
     //jeżeli nie wymaga to tworzenia innego skryptu
+#if UNITY_EDITOR
     [String("Match info containers:")]
+#endif
     public string matchName;
     public string matchPass;
     public uint matchSize;
@@ -17,14 +19,18 @@ public class Menu : MonoBehaviour {
     public bool isConnected;
     public string TypeInput;
     public string ElementInput;
+#if UNITY_EDITOR
     [String("Input fields references:")]
+#endif
     [SerializeField]
     InputField Name;
     [SerializeField]
     InputField Size;
     [SerializeField]
     InputField Pass;
+#if UNITY_EDITOR
     [String("Menu canvas references:")]
+#endif
     [SerializeField]
     GameObject MainCanvas;
     [SerializeField]
@@ -36,7 +42,9 @@ public class Menu : MonoBehaviour {
     [SerializeField]
     GameObject SpellsCanvas;
     GameObject ActiveCanvas;
+#if UNITY_EDITOR
     [String("Skill trees containers:")]
+#endif
     [SerializeField]
     List<GameObject> OffSkillTrees;
     [SerializeField]
@@ -45,7 +53,9 @@ public class Menu : MonoBehaviour {
     GameObject OffTreeGameObject;
     [SerializeField]
     GameObject DeffTreeGameObject;
+#if UNITY_EDITOR
     [String("Tree GameObject references:")]
+#endif
     [SerializeField]
     GameObject FOR;
     [SerializeField]
@@ -55,22 +65,28 @@ public class Menu : MonoBehaviour {
     GameObject AOT, ADT, TREE;
     NetworkLobbyManager LobbyManager;
     NetworkLobbyManagerScript LobbyScript;
+#if UNITY_EDITOR
     [String("Lobby list spaces:")]
+#endif
     [SerializeField]
     GameObject RoomList;
     [SerializeField]
     GameObject PlayerList;
+#if UNITY_EDITOR
     [String("After connection (UI elements):")]
+#endif
     [SerializeField]
     GameObject AfterConnect;
     [SerializeField]
     GameObject StateText;
+#if UNITY_EDITOR
     [String("UI elements references:")]
+#endif
     public Button Off1;
     public Button Off2;
     public Button Off3;
     public Button Deff1;
-    [HideInInspector]
+    //[HideInInspector]
     public string OffType, OffElement, DeffType, DeffElement;
     
     void Awake()
@@ -81,19 +97,23 @@ public class Menu : MonoBehaviour {
         GameCanvas.SetActive(false);
         SpellsCanvas.SetActive(false);
         ActiveCanvas = MainCanvas;
+
         LobbyManager = FindObjectOfType<NetworkLobbyManager>();
         LobbyScript = LobbyManager.GetComponent<NetworkLobbyManagerScript>();
         RoomPlayerList();
+
         isHosting = false;
         isConnected = false;
-        PlayerPrefs.SetInt("Spell", 1);
+
         if (PlayerPrefs.HasKey("AOT")) 
         {
+            AOT = OffSkillTrees[PlayerPrefs.GetInt("AOT")];
             UpdateOffTree();
         }
         else AOT = FOR;
         if (PlayerPrefs.HasKey("ADT")) 
         {
+            ADT = OffSkillTrees[PlayerPrefs.GetInt("ADT")];
             UpdateDeffTree();
         }
         else ADT = ED;
@@ -109,6 +129,8 @@ public class Menu : MonoBehaviour {
 
         if (PlayerPrefs.HasKey("DeffElement")) OffElement = PlayerPrefs.GetString("DeffElement");
         else DeffElement = "Earth";
+
+        PlayerPrefs.Save();
 
         if (!PlayerPrefs.HasKey("Off1")) PlayerPrefs.SetString("Off1", "");
         if (!PlayerPrefs.HasKey("Off2")) PlayerPrefs.SetString("Off2", "");
@@ -211,33 +233,36 @@ public class Menu : MonoBehaviour {
     }
     public void UpdateDeffTree()
     {
-        if(OffType == "Range")
+        if(DeffType == "Range")
         {
-            if (OffElement == "Earth") EarthDeffRange();
+            if (DeffElement == "Earth") EarthDeffRange();
         }
-        if(OffType == "Melee")
+        if(DeffType == "Melee")
         {
-            if(AOT != null) AOT.SetActive(false);
+            if(ADT != null) ADT.SetActive(false);
         }
     }
 
-    //Funkcje zapisu wybranego spella
+    //Funkcje zapisu wybranego spella w wybranym slocie
     public void Offensive(Button spell)
     {
         if(PlayerPrefs.GetString("ChoosingOff") == "Off1")
         {
             Off1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             PlayerPrefs.SetString("Off1", spell.name);
+            PlayerPrefs.Save();
         }
         if (PlayerPrefs.GetString("ChoosingOff") == "Off2")
         {
             Off2.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             PlayerPrefs.SetString("Off2", spell.name);
+            PlayerPrefs.Save();
         }
         if (PlayerPrefs.GetString("ChoosingOff") == "Off3")
         {
             Off3.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             PlayerPrefs.SetString("Off3", spell.name);
+            PlayerPrefs.Save();
         }
     }
     public void Deffensive(Button spell)
@@ -246,6 +271,7 @@ public class Menu : MonoBehaviour {
         {
             Deff1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             PlayerPrefs.SetString("Deff1", spell.name);
+            PlayerPrefs.Save();
         }
     }
     
@@ -255,21 +281,27 @@ public class Menu : MonoBehaviour {
         if(AOT != null) AOT.SetActive(false);
         FOR.SetActive(true);
         AOT = FOR;
+        PlayerPrefs.SetInt("AOT", 0);
+        PlayerPrefs.Save();
     }
     void ThunderOffRange()
     {
         if (AOT != null) AOT.SetActive(false);
         TOR.SetActive(true);
         AOT = TOR;
+        PlayerPrefs.SetInt("AOT", 1);
+        PlayerPrefs.Save();
     }
     void EarthDeffRange()
     {
         if (ADT != null) ADT.SetActive(false);
         ED.SetActive(true);
         ADT = ED;
+        PlayerPrefs.SetInt("ADT", 0);
+        PlayerPrefs.Save();
     }
     
-    //!!!KONIEC FUNKCJI ZMIENIAJĄCYCH DRZEWKO SKULLI!!!
+    //!!!KONIEC FUNKCJI ZMIENIAJĄCYCH DRZEWKO SKILLI!!!
 
 
     //Odpowiednie dane dla LobbyManager'a

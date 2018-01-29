@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class ThunderSpells : NetworkBehaviour {
+#if UNITY_EDITOR
     [String("Camera reference:")]
+#endif
     [SerializeField]
     GameObject PlayerCam;
     float ThunderCD;
     float ThunderDistance;
     float FlameThrowerDistance;
+#if UNITY_EDITOR
     [String("Spells prefab reference:")]
+#endif
     [SerializeField]
     GameObject thunderPrefab;
 
@@ -35,8 +39,6 @@ public class ThunderSpells : NetworkBehaviour {
     [ClientRpc]
     void RpcThunderSpell(string spell)
     {
-       
-        
         if (spell == "thunder" && ThunderCD <= 0)
         {
             ThunderCD = 1f;
