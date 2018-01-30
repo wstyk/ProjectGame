@@ -321,7 +321,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681260963038158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.19999981, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4746253562487542}
@@ -362,7 +362,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1940710103201574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.57, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4279813046648610}
@@ -896,8 +896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17648e299365d644c949a756b907a3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpbar: {fileID: 0}
   UIText: {fileID: 114531298728258744}
-  TextMesh: {fileID: 0}
   maxHP: 150
   playerNet: {fileID: 114926109327243178}
 --- !u!114 &114562664517745508
@@ -999,9 +999,10 @@ MonoBehaviour:
   playerCollider: {fileID: 136966147217915008}
   respawnTime: 3.5
   maxHP: 150
-  RemoteText: {fileID: 1818820835287394, guid: bc5fb36a52be96747bcfe032e51f4ffc, type: 2}
+  bar: {fileID: 1025138718338610, guid: 99c4a3f27f5a2bc44a158b13dac0f7df, type: 2}
   UIText: {fileID: 114531298728258744}
-  TextMesh: {fileID: 0}
+  hpbar: {fileID: 0}
+  hpbar_main: {fileID: 0}
   LocalCanvas: {fileID: 1748882672921018}
 --- !u!124 &124986978382868092
 Behaviour:
@@ -1022,7 +1023,7 @@ CapsuleCollider:
   m_Radius: 2.18
   m_Height: 13.74
   m_Direction: 1
-  m_Center: {x: 0, y: -5.9, z: 0}
+  m_Center: {x: 0, y: 6.7, z: 0}
 --- !u!222 &222881404331958918
 CanvasRenderer:
   m_ObjectHideFlags: 1

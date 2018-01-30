@@ -32,11 +32,13 @@ public class PlayerNet : NetworkBehaviour
     [String("Prefab references:")]
 #endif
     [SerializeField]
-    GameObject RemoteText;
+    GameObject bar;
     [SerializeField]
     Text UIText;
     [SerializeField]
-    GameObject TextMesh;
+    GameObject hpbar;
+    [SerializeField]
+    GameObject hpbar_main;
 #if UNITY_EDITOR
     [String("Canvas reference:")]
 #endif
@@ -69,7 +71,7 @@ public class PlayerNet : NetworkBehaviour
         MainCam.SetActive(!truefalse);
         PlayerCam.SetActive(truefalse);
         LocalCanvas.SetActive(truefalse);
-        TextMesh.GetComponent<MeshRenderer>().enabled = false;
+        hpbar_main.SetActive(false);
         UIText.text = maxHP + "/" + maxHP;
         gameObject.GetComponent<PlayerController>().enabled = truefalse;
         ActivateSpells();
@@ -77,10 +79,10 @@ public class PlayerNet : NetworkBehaviour
     //aktywowanie wspólnych rzeczy
     void Shared(bool truefalse)
     {
-        TextMesh = Instantiate(RemoteText, gameObject.transform.position, gameObject.transform.rotation);
-        TextMesh.GetComponent<RemoteText>().Player = gameObject;
-        TextMesh.GetComponent<TextMesh>().text = maxHP + "/" + maxHP;
-        gameObject.GetComponent<PlayerHP>().TextMesh = TextMesh;
+        hpbar_main = Instantiate(bar, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform);
+        hpbar_main.GetComponent<RemoteText>().Player = gameObject;
+        hpbar = hpbar_main.transform.Find("hpbar_pivot").gameObject;
+        gameObject.GetComponent<PlayerHP>().hpbar = hpbar;
         gameObject.GetComponent<PlayerHP>().UIText = UIText;
         gameObject.GetComponent<PlayerHP>().maxHP = maxHP;
         playerCollider.enabled = truefalse;
@@ -148,7 +150,7 @@ public class PlayerNet : NetworkBehaviour
     [ClientRpc]
     void RpcShared(bool truefalse)
     {
-        if (!isLocalPlayer) TextMesh.GetComponent<MeshRenderer>().enabled = truefalse;
+        if (!isLocalPlayer) hpbar_main.SetActive(truefalse);
         playerCollider.enabled = truefalse;
         playerModel.SetActive(truefalse);
         playerRigidbody.useGravity = truefalse;

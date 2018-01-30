@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class PlayerHP : NetworkBehaviour {
     [HideInInspector]
-    public Text UIText;
+    public GameObject hpbar;
     [HideInInspector]
-    public GameObject TextMesh;
+    public Text UIText;
     [SyncVar]
     float HP;
     [HideInInspector]
@@ -20,6 +20,7 @@ public class PlayerHP : NetworkBehaviour {
     {
         HP = maxHP;
     }
+
     //Funkcja zadająca obrażenia
     [ServerCallback]
     public void TakeDamage(float dmg)
@@ -29,6 +30,7 @@ public class PlayerHP : NetworkBehaviour {
         TargetLocalChange(connectionToClient, HP);
         if (HP <= 0) Dead();
     }
+    
     //Resetowanie HP do max
     [ServerCallback]
     public void ResetHP()
@@ -36,18 +38,21 @@ public class PlayerHP : NetworkBehaviour {
         HP = maxHP;
         TakeDamage(0);
     }
-    //Zmiana tekstu nad głową
+    
+    //Zmiana paska nad głową
     [ClientRpc]
     public void RpcRemoteChange(float UpdatedHP)
     {
-        TextMesh.GetComponent<TextMesh>().text = UpdatedHP + "/" + maxHP;
+        hpbar.transform.localScale = new Vector3(UpdatedHP/maxHP, 1f, 1f);
     }
+    
     //Zmiana lokalnego canvasu
     [TargetRpc]
     void TargetLocalChange(NetworkConnection player, float UpdatedHP)
     {
         UIText.text = UpdatedHP + "/" + maxHP;
     }
+    
     //Funckja wywołująca funkcję śmierci z skryptu PlayerNet
     [ServerCallback]
     void Dead()
