@@ -96,15 +96,15 @@ public class PlayerNet : NetworkBehaviour
     }
     void ActivateSpells()
     {
-        if(PlayerPrefs.GetString("OffElement") == "Fire" || PlayerPrefs.GetString("DeffElement") == "Fire")
+        if (PlayerPrefs.GetString("ChosenOffElement") == "Fire" || PlayerPrefs.GetString("ChosenDeffElement") == "Fire")
         {
             gameObject.GetComponent<FireSpells>().enabled = true;
         }
-        if (PlayerPrefs.GetString("OffElement") == "Thunder" || PlayerPrefs.GetString("DeffElement") == "Thunder")
+        if (PlayerPrefs.GetString("ChosenOffElement") == "Thunder" || PlayerPrefs.GetString("ChosenDeffElement") == "Thunder")
         {
             gameObject.GetComponent<ThunderSpells>().enabled = true;
         }
-        if (PlayerPrefs.GetString("OffElement") == "Earth" || PlayerPrefs.GetString("DeffElement") == "Earth")
+        if (PlayerPrefs.GetString("ChosenOffElement") == "Earth" || PlayerPrefs.GetString("ChosenDeffElement") == "Earth")
         {
             gameObject.GetComponent<EarthSpells>().enabled = true;
         }

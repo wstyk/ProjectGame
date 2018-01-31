@@ -9,6 +9,27 @@ public class Menu : MonoBehaviour {
     //Ten skrypt jest używany do poruszania się po menu,
     //jeżeli chcecie coś dodać do menu to tutaj powinny znajdować się do tego skrypty, 
     //jeżeli nie wymaga to tworzenia innego skryptu
+    //[HideInInspector]
+#if UNITY_EDITOR
+    [String("Spell preferences:")]
+#endif
+    public string OffType;
+    public string OffElement;
+    public string DeffType;
+    public string DeffElement;
+    public string ChosenOffType;
+    public string ChosenOffElement;
+    public string ChosenDeffType;
+    public string ChosenDeffElement;
+#if UNITY_EDITOR
+    [String("Spell info:")]
+#endif
+    public string ChoosingOff;
+    public string ChoosingDeff;
+    public string Off1;
+    public string Off2;
+    public string Off3;
+    public string Deff1;
 #if UNITY_EDITOR
     [String("Match info containers:")]
 #endif
@@ -82,12 +103,15 @@ public class Menu : MonoBehaviour {
 #if UNITY_EDITOR
     [String("UI elements references:")]
 #endif
-    public Button Off1;
-    public Button Off2;
-    public Button Off3;
-    public Button Deff1;
-    //[HideInInspector]
-    public string OffType, OffElement, DeffType, DeffElement;
+    public Button OffButton1;
+    public Button OffButton2;
+    public Button OffButton3;
+    public Button DeffButton1;
+    [SerializeField]
+    Sprite DefaultSprite, blah;
+    [SerializeField]
+    SpellList spells;
+
     
     void Awake()
     {
@@ -118,24 +142,46 @@ public class Menu : MonoBehaviour {
         }
         else ADT = ED;
 
-        if (PlayerPrefs.HasKey("OffType")) OffType = PlayerPrefs.GetString("OffType");
-        else OffType = "Range";
+        if (PlayerPrefs.HasKey("OffType") && PlayerPrefs.HasKey("OffElement")) 
+        {
+            OffType = PlayerPrefs.GetString("OffType");
+            ChosenOffType = PlayerPrefs.GetString("OffType");
+            OffElement = PlayerPrefs.GetString("OffElement");
+            ChosenOffElement = PlayerPrefs.GetString("OffElement");
+        }
+        else
+        {
+            OffType = "Range";
+            ChosenOffType = "Range";
+            OffElement = "Fire";
+            ChosenOffElement = "Fire";
+        }
 
-        if (PlayerPrefs.HasKey("DeffType")) DeffType = PlayerPrefs.GetString("DeffType");
-        else DeffType = "Range";
-
-        if (PlayerPrefs.HasKey("OffElement")) OffElement = PlayerPrefs.GetString("OffElement");
-        else OffElement = "Fire";
-
-        if (PlayerPrefs.HasKey("DeffElement")) OffElement = PlayerPrefs.GetString("DeffElement");
-        else DeffElement = "Earth";
+        if (PlayerPrefs.HasKey("DeffType") && PlayerPrefs.HasKey("DeffElement")) 
+        {
+            DeffType = PlayerPrefs.GetString("DeffType");
+            ChosenDeffType = PlayerPrefs.GetString("DeffType");
+            DeffElement = PlayerPrefs.GetString("DeffElement");
+            ChosenDeffElement = PlayerPrefs.GetString("DeffElement");
+        }
+        else 
+        {
+            DeffType = "Range";
+            ChosenDeffType = "Range";
+            DeffElement = "Earth";
+            ChosenDeffElement = "Earth";
+        }
 
         PlayerPrefs.Save();
 
-        if (!PlayerPrefs.HasKey("Off1")) PlayerPrefs.SetString("Off1", "");
-        if (!PlayerPrefs.HasKey("Off2")) PlayerPrefs.SetString("Off2", "");
-        if (!PlayerPrefs.HasKey("Off3")) PlayerPrefs.SetString("Off3", "");
-        if (!PlayerPrefs.HasKey("Deff1")) PlayerPrefs.SetString("Deff1", "");
+        if (PlayerPrefs.HasKey("Off1")) Off1 = PlayerPrefs.GetString("Off1");
+        else PlayerPrefs.SetString("Off1", "");
+        if (PlayerPrefs.HasKey("Off2")) Off2 = PlayerPrefs.GetString("Off2");
+        else PlayerPrefs.SetString("Off2", "");
+        if (PlayerPrefs.HasKey("Off3")) Off3 = PlayerPrefs.GetString("Off3");
+        else PlayerPrefs.SetString("Off3", "");
+        if (PlayerPrefs.HasKey("Deff1")) Deff1 = PlayerPrefs.GetString("Deff1");
+        else PlayerPrefs.SetString("Deff1", "");
     }
 
     //Menu hostowania
@@ -179,7 +225,37 @@ public class Menu : MonoBehaviour {
         ActiveCanvas = SpellsCanvas;
         if(AOT != null) AOT.SetActive(true);
         if(ADT != null) ADT.SetActive(true);
+        if (Off1 != "")
+        {
+            for (int i = 0; i < spells.Names.Count; i++)
+            {
+                if (Off1 == spells.Names[i]) OffButton1.GetComponent<Image>().sprite = spells.Images[i];
+            }
+        }
+        if (Off2 != "")
+        {
+            for (int i = 0; i < spells.Names.Count; i++)
+            {
+                if (Off2 == spells.Names[i]) OffButton2.GetComponent<Image>().sprite = spells.Images[i];
+                Debug.Log(i);
+            }
+        }
+        if (Off3 != "")
+        {
+            for (int i = 0; i < spells.Names.Count; i++)
+            {
+                if (Off3 == spells.Names[i]) OffButton3.GetComponent<Image>().sprite = spells.Images[i];
+            }
+        }
+        if (Deff1 != "")
+        {
+            for (int i = 0; i < spells.Names.Count; i++)
+            {
+                if (Deff1 == spells.Names[i]) DeffButton1.GetComponent<Image>().sprite = spells.Images[i];
+            }
+        }
     }
+
     //Wyjście z gry
     public void Quit()
     {
@@ -246,35 +322,106 @@ public class Menu : MonoBehaviour {
     //Funkcje zapisu wybranego spella w wybranym slocie
     public void Offensive(Button spell)
     {
-        if(PlayerPrefs.GetString("ChoosingOff") == "Off1")
+        if(ChoosingOff == "Off1")
         {
-            Off1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
-            PlayerPrefs.SetString("Off1", spell.name);
-            PlayerPrefs.Save();
+            if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
+            ChosenOffType = OffType;
+            ChosenOffElement = OffElement;
+            OffButton1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            Off1 = spell.name;
+            if(Off1 == Off2)
+            {
+                Off2 = "";
+                OffButton2.GetComponent<Image>().sprite = DefaultSprite;
+            }
+            if (Off1 == Off3)
+            {
+                Off3 = "";
+                OffButton3.GetComponent<Image>().sprite = DefaultSprite;
+            }
+            TREE.SetActive(false);
         }
-        if (PlayerPrefs.GetString("ChoosingOff") == "Off2")
+        else if (ChoosingOff == "Off2")
         {
-            Off2.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
-            PlayerPrefs.SetString("Off2", spell.name);
-            PlayerPrefs.Save();
+            if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
+            ChosenOffType = OffType;
+            ChosenOffElement = OffElement;
+            OffButton2.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            Off2 = spell.name;
+            if (Off2 == Off1)
+            {
+                Off1 = "";
+                OffButton1.GetComponent<Image>().sprite = DefaultSprite;
+            }
+            if (Off2 == Off3)
+            {
+                Off3 = "";
+                OffButton3.GetComponent<Image>().sprite = DefaultSprite;
+            }
+            TREE.SetActive(false);
         }
-        if (PlayerPrefs.GetString("ChoosingOff") == "Off3")
+        else if (ChoosingOff == "Off3")
         {
-            Off3.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
-            PlayerPrefs.SetString("Off3", spell.name);
-            PlayerPrefs.Save();
+            if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
+            ChosenOffType = OffType;
+            ChosenOffElement = OffElement;
+            OffButton3.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            Off3 = spell.name;
+            if (Off3 == Off1)
+            {
+                Off1 = "";
+                OffButton1.GetComponent<Image>().sprite = DefaultSprite;
+            }
+            if (Off3 == Off2)
+            {
+                Off2 = "";
+                OffButton2.GetComponent<Image>().sprite = DefaultSprite;
+            }
+            TREE.SetActive(false);
         }
     }
     public void Deffensive(Button spell)
     {
-        if(PlayerPrefs.GetString("ChoosingDeff") == "Deff1")
+        if(ChoosingDeff == "Deff1")
         {
-            Deff1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
-            PlayerPrefs.SetString("Deff1", spell.name);
-            PlayerPrefs.Save();
+            if (DeffType != ChosenDeffType || DeffElement != ChosenDeffElement) ResetDeff();
+            ChosenDeffType = DeffType;
+            ChosenDeffElement = DeffElement;
+            DeffButton1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            Deff1 = spell.name;
+            TREE.SetActive(false);
         }
     }
+
+    //Funkcje do resetowania slotów przy zmianie rodzaju lub żywiołu spelli które chce się posiadać
+    void ResetOff()
+    {
+        OffButton1.GetComponent<Image>().sprite = DefaultSprite;
+        OffButton2.GetComponent<Image>().sprite = DefaultSprite;
+        OffButton3.GetComponent<Image>().sprite = DefaultSprite;
+        Off1 = "";
+        Off2 = "";
+        Off3 = "";
+        PlayerPrefs.Save();
+    }
+    void ResetDeff()
+    {
+        DeffButton1.GetComponent<Image>().sprite = DefaultSprite;
+        Deff1 = "";
+    }
     
+    //Funkcja zapisania obecnego wyboru spelli
+    public void SaveSpells()
+    {
+        PlayerPrefs.SetString("Off1", Off1);
+        PlayerPrefs.SetString("Off2", Off2);
+        PlayerPrefs.SetString("Off3", Off3);
+        PlayerPrefs.SetString("Deff1", Deff1);
+        PlayerPrefs.SetString("ChosenOffElement", ChosenOffElement);
+        PlayerPrefs.SetString("ChosenDeffElement", ChosenDeffElement);
+        PlayerPrefs.Save();
+    }
+
     //Funckje zmiany drzewka
     void FireOffRange()
     {

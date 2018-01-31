@@ -11,6 +11,7 @@ public class EarthSpells : NetworkBehaviour {
     GameObject PlayerCam;
     float EarthWallCD;
     float EarthWallDistance;
+    public string Off1, Off2, Off3, Deff1;
 #if UNITY_EDITOR
     [String("Spells prefabs:")]
 #endif
@@ -18,15 +19,24 @@ public class EarthSpells : NetworkBehaviour {
     GameObject earthwallPrefab;
     void Start()
     {
-        EarthWallDistance = 12f;   
+        EarthWallDistance = 12f;
+        if (PlayerPrefs.GetString("ChosenOffElement") == "Earth")
+        {
+            Off1 = PlayerPrefs.GetString("Off1");
+            Off2 = PlayerPrefs.GetString("Off2");
+            Off3 = PlayerPrefs.GetString("Off3");
+        }
+        if (PlayerPrefs.GetString("ChosenDeffElement") == "Earth")
+        {
+            Deff1 = PlayerPrefs.GetString("Deff1");
+        }
     }
 	//Wszystkie komentarze odnośnie działania skryptu znajdują się w skrypcie FireSpells;
 	void Update () {
         CmdCooldowns();
         if (Input.GetKeyDown(KeyCode.Mouse1)) 
         {
-            gameObject.transform.eulerAngles = new Vector3(0, PlayerCam.transform.eulerAngles.y, 0);
-            CmdEarthWall("earthWall");
+            CmdEarthWall(Deff1);
         }
 	}
 
@@ -41,10 +51,10 @@ public class EarthSpells : NetworkBehaviour {
     void RpcEarthWall(string spell)
     {
         //Ściana ziemii
-        if(spell == "earthWall" && EarthWallCD <=0)
+        if(spell == "EarthWall" && EarthWallCD <=0)
         {
             EarthWallCD = 3f;
-            Instantiate(earthwallPrefab, gameObject.transform.position + gameObject.transform.forward * EarthWallDistance + new Vector3(0, -20, 0), gameObject.transform.rotation);
+            Instantiate(earthwallPrefab, gameObject.transform.position + gameObject.transform.forward * EarthWallDistance + new Vector3(0, -10, 0), gameObject.transform.rotation);
         }
     }
 

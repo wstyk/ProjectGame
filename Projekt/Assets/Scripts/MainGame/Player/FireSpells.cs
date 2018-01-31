@@ -21,36 +21,43 @@ public class FireSpells : NetworkBehaviour {
     [SerializeField]
     GameObject flamePrefab;
     GameObject Flame;
+    public string Off1, Off2, Off3, Deff1;
     bool FlameOff;
 
     void Start()
     {
+
         FireBallDistance = 3f;
         FlameThrowerDistance = 10f;
         FlameCD = 3;
         FlameOff = true;
+        if(PlayerPrefs.GetString("ChosenOffElement") == "Fire")
+        {
+            Off1 = PlayerPrefs.GetString("Off1");
+            Off2 = PlayerPrefs.GetString("Off2");
+            Off3 = PlayerPrefs.GetString("Off3");
+        }
+        if(PlayerPrefs.GetString("ChosenDeffElement") == "Fire")
+        {
+            Deff1 = PlayerPrefs.GetString("Deff1");
+        }
     }
 
 	void Update () {
         CmdCooldowns();
         if (FlameOff) CmdFlameCD();
+        if(PlayerPrefs.GetString("ChosenOffElement") == "Fire")
+        {
+            if (Input.GetKey(KeyCode.Mouse0)) CmdFireSpell(Off1);
+            if (Input.GetKey(KeyCode.Mouse2)) CmdFireSpell(Off2);
+            if (Input.GetKey(KeyCode.Space)) CmdFireSpell(Off3);
+        }
+        if(PlayerPrefs.GetString("ChosenDeffElement") == "Fire")
+        {
+            if (Input.GetKey(KeyCode.Mouse1)) CmdFireSpell(Deff1);
+        }
+        
 
-		if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            CmdFireSpell("fireBall");
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse2))
-        {
-            CmdFireSpell("flameCreate");
-        }
-        if(Input.GetKey(KeyCode.Mouse2))
-        {
-            CmdFireSpell("flameHold");
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse2))
-        {
-            CmdFireSpell("flameDestroy");
-        }
     }
 
     //Komunikacja klient-serwer, klient nie może bezpośrednio wykonać czegoś
@@ -73,26 +80,16 @@ public class FireSpells : NetworkBehaviour {
     void RpcFireSpell(string spell)
     {
         //Kula ognia
-        if (spell == "fireBall" && FireBallCD <=0)
+        if (spell == "FireBall" && FireBallCD <=0)
         {
             FireBallCD = 1f;
-            Instantiate(fireBallPrefab, gameObject.transform.position + gameObject.transform.forward * FireBallDistance + new Vector3(0, -2, 0), gameObject.transform.rotation);
+            Instantiate(fireBallPrefab, gameObject.transform.position + gameObject.transform.forward * FireBallDistance + new Vector3(0, 10, 0), gameObject.transform.rotation);
         }
 
         //FlameThrow
-        if (spell == "flameCreate" && FlameCD > 0)
+        if(spell == "FlameThrower")
         {
-            Flame = Instantiate(flamePrefab, gameObject.transform.position + gameObject.transform.forward * FlameThrowerDistance + new Vector3(0, -3, 0), gameObject.transform.rotation * Quaternion.Euler(90, 0, 0), gameObject.transform);
-        }
-        if(spell == "flameHold" && FlameCD > 0 && Flame != null)
-        {
-            FlameCD -= Time.deltaTime;
-            FlameOff = false;
-        }
-        if(spell == "flameDestroy" && Flame != null || FlameCD <= 0)
-        {
-            Destroy(Flame);
-            StartCoroutine("FlameWait");
+            //Trzeba zaprogramować od nowa
         }
     }
 

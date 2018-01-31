@@ -8,7 +8,7 @@ public class OffensiveSpell : MonoBehaviour {
     //Funkcja do przycisków wyboru slotu
 	public void Offensive()
     {
-        PlayerPrefs.SetString("ChoosingOff", gameObject.name);
+        menu.ChoosingOff = gameObject.name;
     }
     
     //Funkcja do przycisków wyboru spella

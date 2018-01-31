@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DeffElement : MonoBehaviour {
+
     [SerializeField]
     Menu menu;
     public void DElement()

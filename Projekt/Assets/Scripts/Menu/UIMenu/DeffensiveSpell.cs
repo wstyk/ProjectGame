@@ -10,7 +10,7 @@ public class DeffensiveSpell : MonoBehaviour {
     //Funkcja do przycisków wyboru slotu
     public void Deffensive()
     {
-        PlayerPrefs.SetString("ChoosingDeff", gameObject.name);
+        menu.ChoosingDeff = gameObject.name;
     }
     //Funkcja do przycisków wyboru spella
     public void Spell()

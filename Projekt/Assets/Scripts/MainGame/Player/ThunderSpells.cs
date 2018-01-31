@@ -12,6 +12,8 @@ public class ThunderSpells : NetworkBehaviour {
     float ThunderCD;
     float ThunderDistance;
     float FlameThrowerDistance;
+    [HideInInspector]
+    public string Off1, Off2, Off3, Deff1;
 #if UNITY_EDITOR
     [String("Spells prefab reference:")]
 #endif
@@ -22,13 +24,23 @@ public class ThunderSpells : NetworkBehaviour {
     {
         ThunderCD = 3;
         ThunderDistance = 2f;
+        if (PlayerPrefs.GetString("ChosenOffElement") == "Thunder")
+        {
+            Off1 = PlayerPrefs.GetString("Off1");
+            Off2 = PlayerPrefs.GetString("Off2");
+            Off3 = PlayerPrefs.GetString("Off3");
+        }
+        if (PlayerPrefs.GetString("ChosenDeffElement") == "Thunder")
+        {
+            Deff1 = PlayerPrefs.GetString("Deff1");
+        }
     }
     //tworzenie spella takie jak Fire
     void Update () {
         CmdCooldowns();
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            CmdThunderSpell("thunder");
+            CmdThunderSpell(Off1);
         }
     }
     [Command]
@@ -39,10 +51,10 @@ public class ThunderSpells : NetworkBehaviour {
     [ClientRpc]
     void RpcThunderSpell(string spell)
     {
-        if (spell == "thunder" && ThunderCD <= 0)
+        if (spell == "Thunder" && ThunderCD <= 0)
         {
             ThunderCD = 1f;
-            Instantiate(thunderPrefab, gameObject.transform.position + gameObject.transform.forward * ThunderDistance + new Vector3(0, -2, 0), gameObject.transform.rotation);
+            Instantiate(thunderPrefab, gameObject.transform.position + gameObject.transform.forward * ThunderDistance + new Vector3(0, 10, 0), gameObject.transform.rotation);
         }
         //tu nie patrzeć xD
         

@@ -1,3 +1,12 @@
+Opis patch(31.01.2018):
+System wyboru spelli dzia³a ju¿ ca³kowicie, lecz zaimplementowanie go spowodowa³o 2 problemy które bêd¹ 
+moimi nastêpnymi priorytetami. 1-flamethrower nie dzia³a, to jak zaprogramowa³em go wczeœniej jest niekompatybilne
+z systemem wyboru spelli. 2- unity nie umie wyœwietlaæ w inspektorze dicrionary, wiêc musia³em u¿yæ 2 publiczych
+list, co nie jest zbyt wygodne.
+
+Zrobiono:
+- System wyboru spelli
+
 Opis patcha(29.01.2018):
 Rozbudowa³em system wyboru spelli. Obecnie w teori da siê przenieœæ do gry to z którego drzewka bêdziemy korzystaæ. 
 Dalej nie mo¿na wybraæ specyficznych spelli i da siê wybraæ kilka ¿ywio³ów dla jednego set'u.
