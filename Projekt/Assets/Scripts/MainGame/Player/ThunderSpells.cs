@@ -57,7 +57,6 @@ public class ThunderSpells : NetworkBehaviour {
             Instantiate(thunderPrefab, gameObject.transform.position + gameObject.transform.forward * ThunderDistance + new Vector3(0, 10, 0), gameObject.transform.rotation);
         }
         //tu nie patrzeć xD
-        
     }
 
     [Command]

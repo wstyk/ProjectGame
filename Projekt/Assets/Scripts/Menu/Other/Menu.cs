@@ -24,12 +24,14 @@ public class Menu : MonoBehaviour {
 #if UNITY_EDITOR
     [String("Spell info:")]
 #endif
-    public string ChoosingOff;
-    public string ChoosingDeff;
     public string Off1;
     public string Off2;
     public string Off3;
     public string Deff1;
+    [HideInInspector]
+    public string ChoosingOff;
+    [HideInInspector]
+    public string ChoosingDeff;
 #if UNITY_EDITOR
     [String("Match info containers:")]
 #endif
@@ -182,6 +184,29 @@ public class Menu : MonoBehaviour {
         else PlayerPrefs.SetString("Off3", "");
         if (PlayerPrefs.HasKey("Deff1")) Deff1 = PlayerPrefs.GetString("Deff1");
         else PlayerPrefs.SetString("Deff1", "");
+    }
+
+    void Update()
+    {
+        if(ActiveCanvas == MainCanvas)
+        {
+
+        }
+        if(ActiveCanvas == GameCanvas)
+        {
+
+        }
+        if(ActiveCanvas == SearchingCanvas)
+        {
+
+        }
+        if(ActiveCanvas == SpellsCanvas)
+        {
+            if(TREE != null && TREE.activeInHierarchy == true)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape)) TREE.SetActive(false);
+            }
+        }
     }
 
     //Menu hostowania
