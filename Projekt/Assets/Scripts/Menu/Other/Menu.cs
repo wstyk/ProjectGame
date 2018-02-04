@@ -110,9 +110,11 @@ public class Menu : MonoBehaviour {
     public Button OffButton3;
     public Button DeffButton1;
     [SerializeField]
-    Sprite DefaultSprite, blah;
+    Sprite DefaultSprite;
     [SerializeField]
     SpellList spells;
+    [SerializeField]
+    GameObject FailedToText;
 
     
     void Awake()
@@ -212,17 +214,37 @@ public class Menu : MonoBehaviour {
     //Menu hostowania
     public void StartCreating()
     {
-        ActiveCanvas.SetActive(false);
-        HostingCanvas.SetActive(true);
-        ActiveCanvas = HostingCanvas;
+        if (Off1 != "" && Off2 != "" && Off3 != "" && Deff1 != "")
+        {
+            ActiveCanvas.SetActive(false);
+            HostingCanvas.SetActive(true);
+            ActiveCanvas = HostingCanvas;
+        }
+        else
+        {
+            GameObject FailedText = Instantiate(FailedToText, ActiveCanvas.transform);
+            FailedText.transform.SetSiblingIndex(0);
+            FailedText.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            FailedText.GetComponent<Text>().text = "Choose all spells \nfirst";
+        }
     }
 
     //Menu szukania
     public void StartSearching()
     {
-        ActiveCanvas.SetActive(false);
-        SearchingCanvas.SetActive(true);
-        ActiveCanvas = SearchingCanvas;
+        if (Off1 != "" && Off2 != "" && Off3 != "" && Deff1 != "")
+        {
+            ActiveCanvas.SetActive(false);
+            SearchingCanvas.SetActive(true);
+            ActiveCanvas = SearchingCanvas;
+        }
+        else
+        {
+            GameObject FailedText = Instantiate(FailedToText, ActiveCanvas.transform);
+            FailedText.transform.SetSiblingIndex(0);
+            FailedText.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            FailedText.GetComponent<Text>().text = "Choose all spells \nfirst";
+        }
     }
 
     //Okienko gry
@@ -262,7 +284,6 @@ public class Menu : MonoBehaviour {
             for (int i = 0; i < spells.Names.Count; i++)
             {
                 if (Off2 == spells.Names[i]) OffButton2.GetComponent<Image>().sprite = spells.Images[i];
-                Debug.Log(i);
             }
         }
         if (Off3 != "")
