@@ -29,9 +29,9 @@ public class Menu : MonoBehaviour {
     public string Off3;
     public string Deff1;
     [HideInInspector]
-    public string ChoosingOff;
+    public GameObject ChoosingOff;
     [HideInInspector]
-    public string ChoosingDeff;
+    public GameObject ChoosingDeff;
 #if UNITY_EDITOR
     [String("Match info containers:")]
 #endif
@@ -77,14 +77,41 @@ public class Menu : MonoBehaviour {
     [SerializeField]
     GameObject DeffTreeGameObject;
 #if UNITY_EDITOR
-    [String("Tree GameObject references:")]
+    [String("Offensive range trees:")]
 #endif
     [SerializeField]
     GameObject FOR;
     [SerializeField]
-    GameObject TOR;
+    GameObject EOR;
     [SerializeField]
-    GameObject ED;
+    GameObject WOR;
+    [SerializeField]
+    GameObject SOR;
+    [SerializeField]
+#if UNITY_EDITOR
+    [String("Offensive melee trees:")]
+#endif
+    GameObject FOM;
+    [SerializeField]
+    GameObject EOM;
+    [SerializeField]
+    GameObject WOM;
+    [SerializeField]
+    GameObject SOM;
+#if UNITY_EDITOR
+    [String("Deffensive range trees:")]
+#endif
+    [SerializeField]
+    GameObject FDR;
+    [SerializeField]
+    GameObject WDR;
+    [SerializeField]
+    GameObject SDR;
+    [SerializeField]
+    GameObject EDR;
+#if UNITY_EDITOR
+    [String("Deffensive melee trees:")]
+#endif
     GameObject AOT, ADT, TREE;
     NetworkLobbyManager LobbyManager;
     NetworkLobbyManagerScript LobbyScript;
@@ -144,7 +171,7 @@ public class Menu : MonoBehaviour {
             ADT = OffSkillTrees[PlayerPrefs.GetInt("ADT")];
             UpdateDeffTree();
         }
-        else ADT = ED;
+        else ADT = EDR;
 
         if (PlayerPrefs.HasKey("OffType") && PlayerPrefs.HasKey("OffElement")) 
         {
@@ -206,7 +233,12 @@ public class Menu : MonoBehaviour {
         {
             if(TREE != null && TREE.activeInHierarchy == true)
             {
-                if (Input.GetKeyDown(KeyCode.Escape)) TREE.SetActive(false);
+                if (Input.GetKeyDown(KeyCode.Escape)) 
+                {
+                    if (ChoosingOff != null) ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
+                    if (ChoosingDeff != null) ChoosingDeff.transform.localScale = new Vector3(1, 1, 1);
+                    TREE.SetActive(false);
+                }
             }
         }
     }
@@ -346,7 +378,9 @@ public class Menu : MonoBehaviour {
         if(OffType == "Range")
         {
             if (OffElement == "Fire") FireOffRange();
-            if (OffElement == "Thunder") ThunderOffRange();
+            else if (OffElement == "Earth") EarthOffRange();
+            else if (OffElement == "Water") WaterOffRange();
+            else if (OffElement == "Shadow") ShadowOffRange();
         }
         if(OffType == "Melee")
         {
@@ -357,7 +391,10 @@ public class Menu : MonoBehaviour {
     {
         if(DeffType == "Range")
         {
-            if (DeffElement == "Earth") EarthDeffRange();
+            if (DeffElement == "Fire") FireDeffRange();
+            else if (DeffElement == "Earth") EarthDeffRange();
+            else if (DeffElement == "Water") WaterDeffRange();
+            else if (DeffElement == "Shadow") ShadowDeffRange();
         }
         if(DeffType == "Melee")
         {
@@ -368,7 +405,7 @@ public class Menu : MonoBehaviour {
     //Funkcje zapisu wybranego spella w wybranym slocie
     public void Offensive(Button spell)
     {
-        if(ChoosingOff == "Off1")
+        if(ChoosingOff.name == "Off1")
         {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
@@ -385,9 +422,10 @@ public class Menu : MonoBehaviour {
                 Off3 = "";
                 OffButton3.GetComponent<Image>().sprite = DefaultSprite;
             }
+            ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
-        else if (ChoosingOff == "Off2")
+        else if (ChoosingOff.name == "Off2")
         {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
@@ -404,9 +442,10 @@ public class Menu : MonoBehaviour {
                 Off3 = "";
                 OffButton3.GetComponent<Image>().sprite = DefaultSprite;
             }
+            ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
-        else if (ChoosingOff == "Off3")
+        else if (ChoosingOff.name == "Off3")
         {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
@@ -423,18 +462,20 @@ public class Menu : MonoBehaviour {
                 Off2 = "";
                 OffButton2.GetComponent<Image>().sprite = DefaultSprite;
             }
+            ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
     }
     public void Deffensive(Button spell)
     {
-        if(ChoosingDeff == "Deff1")
+        if(ChoosingDeff.name == "Deff1")
         {
             if (DeffType != ChosenDeffType || DeffElement != ChosenDeffElement) ResetDeff();
             ChosenDeffType = DeffType;
             ChosenDeffElement = DeffElement;
             DeffButton1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             Deff1 = spell.name;
+            ChoosingDeff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
     }
@@ -477,23 +518,64 @@ public class Menu : MonoBehaviour {
         PlayerPrefs.SetInt("AOT", 0);
         PlayerPrefs.Save();
     }
-    void ThunderOffRange()
+    void EarthOffRange()
     {
         if (AOT != null) AOT.SetActive(false);
-        TOR.SetActive(true);
-        AOT = TOR;
+        EOR.SetActive(true);
+        AOT = EOR;
         PlayerPrefs.SetInt("AOT", 1);
+        PlayerPrefs.Save();
+    }
+    void WaterOffRange()
+    {
+        if (AOT != null) AOT.SetActive(false);
+        WOR.SetActive(true);
+        AOT = WOR;
+        PlayerPrefs.SetInt("AOT", 2);
+        PlayerPrefs.Save();
+    }
+    void ShadowOffRange()
+    {
+        if (AOT != null) AOT.SetActive(false);
+        SOR.SetActive(true);
+        AOT = SOR;
+        PlayerPrefs.SetInt("AOT", 3);
+        PlayerPrefs.Save();
+    }
+
+    void FireDeffRange()
+    {
+        if (ADT != null) ADT.SetActive(false);
+        FDR.SetActive(true);
+        ADT = FDR;
+        PlayerPrefs.SetInt("ADT", 0);
         PlayerPrefs.Save();
     }
     void EarthDeffRange()
     {
         if (ADT != null) ADT.SetActive(false);
-        ED.SetActive(true);
-        ADT = ED;
-        PlayerPrefs.SetInt("ADT", 0);
+        EDR.SetActive(true);
+        ADT = EDR;
+        PlayerPrefs.SetInt("ADT", 1);
         PlayerPrefs.Save();
     }
-    
+    void WaterDeffRange()
+    {
+        if (ADT != null) ADT.SetActive(false);
+        WDR.SetActive(true);
+        ADT = WDR;
+        PlayerPrefs.SetInt("ADT", 2);
+        PlayerPrefs.Save();
+    }
+    void ShadowDeffRange()
+    {
+        if (ADT != null) ADT.SetActive(false);
+        SDR.SetActive(true);
+        ADT = SDR;
+        PlayerPrefs.SetInt("ADT", 3);
+        PlayerPrefs.Save();
+    }
+
     //!!!KONIEC FUNKCJI ZMIENIAJĄCYCH DRZEWKO SKILLI!!!
 
 

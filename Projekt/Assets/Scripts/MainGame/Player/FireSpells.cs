@@ -21,7 +21,8 @@ public class FireSpells : NetworkBehaviour {
     [SerializeField]
     GameObject flamePrefab;
     GameObject Flame;
-    public string Off1, Off2, Off3, Deff1;
+    [SerializeField]
+    string Off1, Off2, Off3, Deff1, ChosenOff, ChosenDeff;
     bool FlameOff;
 
     void Start()
@@ -31,13 +32,15 @@ public class FireSpells : NetworkBehaviour {
         FlameThrowerDistance = 10f;
         FlameCD = 3;
         FlameOff = true;
-        if(PlayerPrefs.GetString("ChosenOffElement") == "Fire")
+        ChosenOff = PlayerPrefs.GetString("ChosenOffElement");
+        ChosenDeff = PlayerPrefs.GetString("ChosenDeffElement");
+        if(ChosenOff == "Fire")
         {
             Off1 = PlayerPrefs.GetString("Off1");
             Off2 = PlayerPrefs.GetString("Off2");
             Off3 = PlayerPrefs.GetString("Off3");
         }
-        if(PlayerPrefs.GetString("ChosenDeffElement") == "Fire")
+        if(ChosenDeff == "Fire")
         {
             Deff1 = PlayerPrefs.GetString("Deff1");
         }
@@ -46,18 +49,26 @@ public class FireSpells : NetworkBehaviour {
 	void Update () {
         CmdCooldowns();
         if (FlameOff) CmdFlameCD();
-        if(PlayerPrefs.GetString("ChosenOffElement") == "Fire")
+        if(ChosenOff == "Fire")
         {
-            if (Input.GetKey(KeyCode.Mouse0)) CmdFireSpell(Off1);
-            if (Input.GetKey(KeyCode.Mouse2)) CmdFireSpell(Off2);
-            if (Input.GetKey(KeyCode.Space)) CmdFireSpell(Off3);
-        }
-        if(PlayerPrefs.GetString("ChosenDeffElement") == "Fire")
-        {
-            if (Input.GetKey(KeyCode.Mouse1)) CmdFireSpell(Deff1);
-        }
-        
+            if (Input.GetKeyDown(KeyCode.Mouse0)) CmdSpell(Off1 + "Down");
+            else if (Input.GetKeyUp(KeyCode.Mouse0)) CmdSpell(Off1 + "Up");
+            else if (Input.GetKey(KeyCode.Mouse0)) CmdSpell(Off1 + "Hold");
 
+            if (Input.GetKeyDown(KeyCode.Mouse2)) CmdSpell(Off2 + "Down");
+            else if (Input.GetKeyUp(KeyCode.Mouse2)) CmdSpell(Off2 + "Up");
+            else if (Input.GetKey(KeyCode.Mouse2)) CmdSpell(Off2 + "Hold");
+
+            if (Input.GetKeyDown(KeyCode.Mouse3)) CmdSpell(Off3 + "Down");
+            else if (Input.GetKeyUp(KeyCode.Mouse3)) CmdSpell(Off3 + "Up");
+            else if (Input.GetKey(KeyCode.Mouse3)) CmdSpell(Off3 + "Hold");
+        }
+        if(ChosenDeff == "Fire")
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1)) CmdSpell(Deff1 + "Down");
+            else if (Input.GetKeyUp(KeyCode.Mouse1)) CmdSpell(Deff1 + "Up");
+            else if (Input.GetKey(KeyCode.Mouse1)) CmdSpell(Deff1 + "Hold");
+        }
     }
 
     //Komunikacja klient-serwer, klient nie może bezpośrednio wykonać czegoś
@@ -65,9 +76,9 @@ public class FireSpells : NetworkBehaviour {
     //Każda funkcja musi mieć przedrostek Cmd.
 
     [Command]
-    void CmdFireSpell(string spell)
+    void CmdSpell(string spell)
     {
-        RpcFireSpell(spell);
+        RpcSpell(spell);
     }
 
 
@@ -77,10 +88,10 @@ public class FireSpells : NetworkBehaviour {
 
     //Spelle
     [ClientRpc]
-    void RpcFireSpell(string spell)
+    void RpcSpell(string spell)
     {
         //Kula ognia
-        if (spell == "FireBall" && FireBallCD <=0)
+        if (spell == "FireBallDown" && FireBallCD <=0)
         {
             FireBallCD = 1f;
             Instantiate(fireBallPrefab, gameObject.transform.position + gameObject.transform.forward * FireBallDistance + new Vector3(0, 10, 0), gameObject.transform.rotation);

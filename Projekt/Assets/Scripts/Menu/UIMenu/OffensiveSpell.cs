@@ -8,7 +8,10 @@ public class OffensiveSpell : MonoBehaviour {
     //Funkcja do przycisków wyboru slotu
 	public void Offensive()
     {
-        menu.ChoosingOff = gameObject.name;
+        if (menu.ChoosingOff != null) menu.ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
+        if (menu.ChoosingDeff != null) menu.ChoosingDeff.transform.localScale = new Vector3(1, 1, 1);
+        menu.ChoosingOff = gameObject;
+        menu.ChoosingOff.transform.localScale = new Vector3(2, 2, 2);
     }
     
     //Funkcja do przycisków wyboru spella
