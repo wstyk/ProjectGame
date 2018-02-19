@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class FailedToScript : MonoBehaviour {
 
-    [SerializeField]
-    Text text;
     float t;
 	void Start()
     {
@@ -15,7 +13,7 @@ public class FailedToScript : MonoBehaviour {
 
     void Update () {
         t -= 0.01f;
-        text.color = new Color(0, 0, 0, t);
+        gameObject.GetComponent<Text>().color = new Color(1, 0.2f, 0, t);
         if (t <= 0) Destroy(gameObject);
 	}
 }

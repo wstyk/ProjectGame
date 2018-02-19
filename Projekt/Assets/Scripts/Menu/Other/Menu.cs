@@ -29,9 +29,9 @@ public class Menu : MonoBehaviour {
     public string Off3;
     public string Deff1;
     [HideInInspector]
-    public string ChoosingOff;
+    public GameObject ChoosingOff;
     [HideInInspector]
-    public string ChoosingDeff;
+    public GameObject ChoosingDeff;
 #if UNITY_EDITOR
     [String("Match info containers:")]
 #endif
@@ -77,14 +77,41 @@ public class Menu : MonoBehaviour {
     [SerializeField]
     GameObject DeffTreeGameObject;
 #if UNITY_EDITOR
-    [String("Tree GameObject references:")]
+    [String("Offensive range trees:")]
 #endif
     [SerializeField]
     GameObject FOR;
     [SerializeField]
-    GameObject TOR;
+    GameObject EOR;
     [SerializeField]
-    GameObject ED;
+    GameObject WOR;
+    [SerializeField]
+    GameObject SOR;
+    [SerializeField]
+#if UNITY_EDITOR
+    [String("Offensive melee trees:")]
+#endif
+    GameObject FOM;
+    [SerializeField]
+    GameObject EOM;
+    [SerializeField]
+    GameObject WOM;
+    [SerializeField]
+    GameObject SOM;
+#if UNITY_EDITOR
+    [String("Deffensive range trees:")]
+#endif
+    [SerializeField]
+    GameObject FDR;
+    [SerializeField]
+    GameObject WDR;
+    [SerializeField]
+    GameObject SDR;
+    [SerializeField]
+    GameObject EDR;
+#if UNITY_EDITOR
+    [String("Deffensive melee trees:")]
+#endif
     GameObject AOT, ADT, TREE;
     NetworkLobbyManager LobbyManager;
     NetworkLobbyManagerScript LobbyScript;
@@ -110,9 +137,9 @@ public class Menu : MonoBehaviour {
     public Button OffButton3;
     public Button DeffButton1;
     [SerializeField]
-    Sprite DefaultSprite, blah;
-    [SerializeField]
     SpellList spells;
+    [SerializeField]
+    GameObject FailedToText;
 
     
     void Awake()
@@ -142,7 +169,7 @@ public class Menu : MonoBehaviour {
             ADT = OffSkillTrees[PlayerPrefs.GetInt("ADT")];
             UpdateDeffTree();
         }
-        else ADT = ED;
+        else ADT = EDR;
 
         if (PlayerPrefs.HasKey("OffType") && PlayerPrefs.HasKey("OffElement")) 
         {
@@ -204,7 +231,12 @@ public class Menu : MonoBehaviour {
         {
             if(TREE != null && TREE.activeInHierarchy == true)
             {
-                if (Input.GetKeyDown(KeyCode.Escape)) TREE.SetActive(false);
+                if (Input.GetKeyDown(KeyCode.Escape)) 
+                {
+                    if (ChoosingOff != null) ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
+                    if (ChoosingDeff != null) ChoosingDeff.transform.localScale = new Vector3(1, 1, 1);
+                    TREE.SetActive(false);
+                }
             }
         }
     }
@@ -212,17 +244,37 @@ public class Menu : MonoBehaviour {
     //Menu hostowania
     public void StartCreating()
     {
-        ActiveCanvas.SetActive(false);
-        HostingCanvas.SetActive(true);
-        ActiveCanvas = HostingCanvas;
+        if (Off1 != "" && Off2 != "" && Off3 != "" && Deff1 != "")
+        {
+            ActiveCanvas.SetActive(false);
+            HostingCanvas.SetActive(true);
+            ActiveCanvas = HostingCanvas;
+        }
+        else
+        {
+            GameObject FailedText = Instantiate(FailedToText, ActiveCanvas.transform);
+            FailedText.transform.SetSiblingIndex(0);
+            FailedText.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            FailedText.GetComponent<Text>().text = "Choose all spells \nfirst";
+        }
     }
 
     //Menu szukania
     public void StartSearching()
     {
-        ActiveCanvas.SetActive(false);
-        SearchingCanvas.SetActive(true);
-        ActiveCanvas = SearchingCanvas;
+        if (Off1 != "" && Off2 != "" && Off3 != "" && Deff1 != "")
+        {
+            ActiveCanvas.SetActive(false);
+            SearchingCanvas.SetActive(true);
+            ActiveCanvas = SearchingCanvas;
+        }
+        else
+        {
+            GameObject FailedText = Instantiate(FailedToText, ActiveCanvas.transform);
+            FailedText.transform.SetSiblingIndex(0);
+            FailedText.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            FailedText.GetComponent<Text>().text = "Choose all spells \nfirst";
+        }
     }
 
     //Okienko gry
@@ -254,31 +306,50 @@ public class Menu : MonoBehaviour {
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Off1 == spells.Names[i]) OffButton1.GetComponent<Image>().sprite = spells.Images[i];
+                if (Off1 == spells.Names[i]) 
+                {
+                    OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                    OffButton1.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                }
             }
         }
+        else OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         if (Off2 != "")
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Off2 == spells.Names[i]) OffButton2.GetComponent<Image>().sprite = spells.Images[i];
-                Debug.Log(i);
+                if (Off2 == spells.Names[i]) 
+                {
+                    OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                    OffButton2.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                }
             }
         }
+        else OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         if (Off3 != "")
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Off3 == spells.Names[i]) OffButton3.GetComponent<Image>().sprite = spells.Images[i];
+                if (Off3 == spells.Names[i])
+                {
+                    OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                    OffButton3.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                }
             }
         }
+        else OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         if (Deff1 != "")
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Deff1 == spells.Names[i]) DeffButton1.GetComponent<Image>().sprite = spells.Images[i];
+                if (Deff1 == spells.Names[i]) 
+                {
+                    DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                    DeffButton1.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                }
             }
         }
+        else DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
     }
 
     //Wyjście z gry
@@ -325,7 +396,9 @@ public class Menu : MonoBehaviour {
         if(OffType == "Range")
         {
             if (OffElement == "Fire") FireOffRange();
-            if (OffElement == "Thunder") ThunderOffRange();
+            else if (OffElement == "Earth") EarthOffRange();
+            else if (OffElement == "Water") WaterOffRange();
+            else if (OffElement == "Shadow") ShadowOffRange();
         }
         if(OffType == "Melee")
         {
@@ -336,7 +409,10 @@ public class Menu : MonoBehaviour {
     {
         if(DeffType == "Range")
         {
-            if (DeffElement == "Earth") EarthDeffRange();
+            if (DeffElement == "Fire") FireDeffRange();
+            else if (DeffElement == "Earth") EarthDeffRange();
+            else if (DeffElement == "Water") WaterDeffRange();
+            else if (DeffElement == "Shadow") ShadowDeffRange();
         }
         if(DeffType == "Melee")
         {
@@ -347,73 +423,81 @@ public class Menu : MonoBehaviour {
     //Funkcje zapisu wybranego spella w wybranym slocie
     public void Offensive(Button spell)
     {
-        if(ChoosingOff == "Off1")
+        if(ChoosingOff.name == "Off1")
         {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
             ChosenOffElement = OffElement;
-            OffButton1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+            OffButton1.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
             Off1 = spell.name;
             if(Off1 == Off2)
             {
                 Off2 = "";
-                OffButton2.GetComponent<Image>().sprite = DefaultSprite;
+                OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
             if (Off1 == Off3)
             {
                 Off3 = "";
-                OffButton3.GetComponent<Image>().sprite = DefaultSprite;
+                OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
+            ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
-        else if (ChoosingOff == "Off2")
+        else if (ChoosingOff.name == "Off2")
         {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
             ChosenOffElement = OffElement;
-            OffButton2.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+            OffButton2.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
             Off2 = spell.name;
             if (Off2 == Off1)
             {
                 Off1 = "";
-                OffButton1.GetComponent<Image>().sprite = DefaultSprite;
+                OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
             if (Off2 == Off3)
             {
                 Off3 = "";
-                OffButton3.GetComponent<Image>().sprite = DefaultSprite;
+                OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
+            ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
-        else if (ChoosingOff == "Off3")
+        else if (ChoosingOff.name == "Off3")
         {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
             ChosenOffElement = OffElement;
-            OffButton3.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+            OffButton3.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
             Off3 = spell.name;
             if (Off3 == Off1)
             {
                 Off1 = "";
-                OffButton1.GetComponent<Image>().sprite = DefaultSprite;
+                OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
             if (Off3 == Off2)
             {
                 Off2 = "";
-                OffButton2.GetComponent<Image>().sprite = DefaultSprite;
+                OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
+            ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
     }
     public void Deffensive(Button spell)
     {
-        if(ChoosingDeff == "Deff1")
+        if(ChoosingDeff.name == "Deff1")
         {
             if (DeffType != ChosenDeffType || DeffElement != ChosenDeffElement) ResetDeff();
             ChosenDeffType = DeffType;
             ChosenDeffElement = DeffElement;
-            DeffButton1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
+            DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+            DeffButton1.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
             Deff1 = spell.name;
+            ChoosingDeff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
         }
     }
@@ -421,9 +505,9 @@ public class Menu : MonoBehaviour {
     //Funkcje do resetowania slotów przy zmianie rodzaju lub żywiołu spelli które chce się posiadać
     void ResetOff()
     {
-        OffButton1.GetComponent<Image>().sprite = DefaultSprite;
-        OffButton2.GetComponent<Image>().sprite = DefaultSprite;
-        OffButton3.GetComponent<Image>().sprite = DefaultSprite;
+        OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+        OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+        OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         Off1 = "";
         Off2 = "";
         Off3 = "";
@@ -431,7 +515,7 @@ public class Menu : MonoBehaviour {
     }
     void ResetDeff()
     {
-        DeffButton1.GetComponent<Image>().sprite = DefaultSprite;
+        DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         Deff1 = "";
     }
     
@@ -456,23 +540,64 @@ public class Menu : MonoBehaviour {
         PlayerPrefs.SetInt("AOT", 0);
         PlayerPrefs.Save();
     }
-    void ThunderOffRange()
+    void EarthOffRange()
     {
         if (AOT != null) AOT.SetActive(false);
-        TOR.SetActive(true);
-        AOT = TOR;
+        EOR.SetActive(true);
+        AOT = EOR;
         PlayerPrefs.SetInt("AOT", 1);
+        PlayerPrefs.Save();
+    }
+    void WaterOffRange()
+    {
+        if (AOT != null) AOT.SetActive(false);
+        WOR.SetActive(true);
+        AOT = WOR;
+        PlayerPrefs.SetInt("AOT", 2);
+        PlayerPrefs.Save();
+    }
+    void ShadowOffRange()
+    {
+        if (AOT != null) AOT.SetActive(false);
+        SOR.SetActive(true);
+        AOT = SOR;
+        PlayerPrefs.SetInt("AOT", 3);
+        PlayerPrefs.Save();
+    }
+
+    void FireDeffRange()
+    {
+        if (ADT != null) ADT.SetActive(false);
+        FDR.SetActive(true);
+        ADT = FDR;
+        PlayerPrefs.SetInt("ADT", 0);
         PlayerPrefs.Save();
     }
     void EarthDeffRange()
     {
         if (ADT != null) ADT.SetActive(false);
-        ED.SetActive(true);
-        ADT = ED;
-        PlayerPrefs.SetInt("ADT", 0);
+        EDR.SetActive(true);
+        ADT = EDR;
+        PlayerPrefs.SetInt("ADT", 1);
         PlayerPrefs.Save();
     }
-    
+    void WaterDeffRange()
+    {
+        if (ADT != null) ADT.SetActive(false);
+        WDR.SetActive(true);
+        ADT = WDR;
+        PlayerPrefs.SetInt("ADT", 2);
+        PlayerPrefs.Save();
+    }
+    void ShadowDeffRange()
+    {
+        if (ADT != null) ADT.SetActive(false);
+        SDR.SetActive(true);
+        ADT = SDR;
+        PlayerPrefs.SetInt("ADT", 3);
+        PlayerPrefs.Save();
+    }
+
     //!!!KONIEC FUNKCJI ZMIENIAJĄCYCH DRZEWKO SKILLI!!!
 
 
