@@ -4481,9 +4481,15 @@ RectTransform:
   m_Father: {fileID: 1146238858}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -167.3, y: -113}
+=======
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -50, y: 76}
+>>>>>>> 542c70e7c978be4304aac5b0d6c37dc6f944655e
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093652394
@@ -10121,8 +10127,13 @@ MonoBehaviour:
   Off2: 
   Off3: 
   Deff1: 
+<<<<<<< HEAD
+  ChoosingOff: 
+  ChoosingDeff: 
+=======
   ChoosingOff: {fileID: 0}
   ChoosingDeff: {fileID: 0}
+>>>>>>> 542c70e7c978be4304aac5b0d6c37dc6f944655e
   matchName: 
   matchPass: 
   matchSize: 0
