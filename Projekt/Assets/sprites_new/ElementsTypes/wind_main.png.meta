@@ -33,13 +33,9 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -1
-<<<<<<< HEAD
-    wrapMode: 1
-=======
     wrapU: 1
     wrapV: -1
     wrapW: -1
->>>>>>> 542c70e7c978be4304aac5b0d6c37dc6f944655e
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -83,17 +79,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-<<<<<<< HEAD
-  - buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-=======
->>>>>>> 542c70e7c978be4304aac5b0d6c37dc6f944655e
   spriteSheet:
     serializedVersion: 2
     sprites: []
