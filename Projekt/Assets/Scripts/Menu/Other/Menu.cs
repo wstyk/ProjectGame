@@ -137,6 +137,8 @@ public class Menu : MonoBehaviour {
     public Button OffButton3;
     public Button DeffButton1;
     [SerializeField]
+    Sprite DefaultSprite;
+    [SerializeField]
     SpellList spells;
     [SerializeField]
     GameObject FailedToText;
@@ -306,50 +308,30 @@ public class Menu : MonoBehaviour {
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Off1 == spells.Names[i]) 
-                {
-                    OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                    OffButton1.GetComponentInChildren<Image>().sprite = spells.Images[i];
-                }
+                if (Off1 == spells.Names[i]) OffButton1.GetComponent<Image>().sprite = spells.Images[i];
             }
         }
-        else OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         if (Off2 != "")
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Off2 == spells.Names[i]) 
-                {
-                    OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                    OffButton2.GetComponentInChildren<Image>().sprite = spells.Images[i];
-                }
+                if (Off2 == spells.Names[i]) OffButton2.GetComponent<Image>().sprite = spells.Images[i];
             }
         }
-        else OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         if (Off3 != "")
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Off3 == spells.Names[i])
-                {
-                    OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                    OffButton3.GetComponentInChildren<Image>().sprite = spells.Images[i];
-                }
+                if (Off3 == spells.Names[i]) OffButton3.GetComponent<Image>().sprite = spells.Images[i];
             }
         }
-        else OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
         if (Deff1 != "")
         {
             for (int i = 0; i < spells.Names.Count; i++)
             {
-                if (Deff1 == spells.Names[i]) 
-                {
-                    DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                    DeffButton1.GetComponentInChildren<Image>().sprite = spells.Images[i];
-                }
+                if (Deff1 == spells.Names[i]) DeffButton1.GetComponent<Image>().sprite = spells.Images[i];
             }
         }
-        else DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
     }
 
     //Wyjście z gry
@@ -428,18 +410,17 @@ public class Menu : MonoBehaviour {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
             ChosenOffElement = OffElement;
-            OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-            OffButton1.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
+            OffButton1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             Off1 = spell.name;
             if(Off1 == Off2)
             {
                 Off2 = "";
-                OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                OffButton2.GetComponent<Image>().sprite = DefaultSprite;
             }
             if (Off1 == Off3)
             {
                 Off3 = "";
-                OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                OffButton3.GetComponent<Image>().sprite = DefaultSprite;
             }
             ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
@@ -449,18 +430,17 @@ public class Menu : MonoBehaviour {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
             ChosenOffElement = OffElement;
-            OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-            OffButton2.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
+            OffButton2.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             Off2 = spell.name;
             if (Off2 == Off1)
             {
                 Off1 = "";
-                OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                OffButton1.GetComponent<Image>().sprite = DefaultSprite;
             }
             if (Off2 == Off3)
             {
                 Off3 = "";
-                OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                OffButton3.GetComponent<Image>().sprite = DefaultSprite;
             }
             ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
@@ -470,18 +450,17 @@ public class Menu : MonoBehaviour {
             if (OffType != ChosenOffType || OffElement != ChosenOffElement) ResetOff();
             ChosenOffType = OffType;
             ChosenOffElement = OffElement;
-            OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-            OffButton3.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
+            OffButton3.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             Off3 = spell.name;
             if (Off3 == Off1)
             {
                 Off1 = "";
-                OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                OffButton1.GetComponent<Image>().sprite = DefaultSprite;
             }
             if (Off3 == Off2)
             {
                 Off2 = "";
-                OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                OffButton2.GetComponent<Image>().sprite = DefaultSprite;
             }
             ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
@@ -494,8 +473,7 @@ public class Menu : MonoBehaviour {
             if (DeffType != ChosenDeffType || DeffElement != ChosenDeffElement) ResetDeff();
             ChosenDeffType = DeffType;
             ChosenDeffElement = DeffElement;
-            DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-            DeffButton1.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
+            DeffButton1.GetComponent<Image>().sprite = spell.GetComponent<Image>().sprite;
             Deff1 = spell.name;
             ChoosingDeff.transform.localScale = new Vector3(1, 1, 1);
             TREE.SetActive(false);
@@ -505,9 +483,9 @@ public class Menu : MonoBehaviour {
     //Funkcje do resetowania slotów przy zmianie rodzaju lub żywiołu spelli które chce się posiadać
     void ResetOff()
     {
-        OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-        OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-        OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+        OffButton1.GetComponent<Image>().sprite = DefaultSprite;
+        OffButton2.GetComponent<Image>().sprite = DefaultSprite;
+        OffButton3.GetComponent<Image>().sprite = DefaultSprite;
         Off1 = "";
         Off2 = "";
         Off3 = "";
@@ -515,7 +493,7 @@ public class Menu : MonoBehaviour {
     }
     void ResetDeff()
     {
-        DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+        DeffButton1.GetComponent<Image>().sprite = DefaultSprite;
         Deff1 = "";
     }
     
