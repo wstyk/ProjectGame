@@ -1,19 +1,4 @@
-Opis patcha(24.02.2018):
-Po d³u¿szej przerwie postaram siê wróciæ do regularnych patch'y, aczkolwiek modelowanie postaci jest bardzo uci¹¿liwe
-i zrobienie czegokolwiek zajmuje mi nawet kilka godzin, pewnie po jakimœ czasie bêdê robi³ to wszystko szybciej. 
-W tym patchu dodajê nowy model, stary usuwam. Przy tworzeniu nowego modelu postara³em siê u¿yæ doœwiadczenia z 1-wszego
-plus stara³em siê o jak najlepsz¹ topologiê. W nastêpnych patchach dodam rig do postaci jak i równie¿ zacznê pracowaæ 
-na detalami, oczywiœcie wszystko dalej w low-poly aby nadaæ podstawow¹ geometriê. RzeŸbieniem zajmê siê kiedy bêdê 
-mia³ ju¿ ca³¹ postaæ wykonan¹ w low-poly. Dodatkowo zajmê siê programowaniem spelli, jako ¿e ju¿ mam doœæ siedzenia
-nad blenderem, wiêc ogólnie w najbli¿szym czasie patche powinny pojawiaæ siê czêœciej ni¿ 24 dni.
-
-Dodano:
-- Nowy model postaci
-
-Usuniêto:
-- Stary model postaci
-
-Opis patcha(31.01.2018):
+Opis patch(31.01.2018):
 System wyboru spelli dzia³a ju¿ ca³kowicie, lecz zaimplementowanie go spowodowa³o 2 problemy które bêd¹ 
 moimi nastêpnymi priorytetami. 1-flamethrower nie dzia³a, to jak zaprogramowa³em go wczeœniej jest niekompatybilne
 z systemem wyboru spelli. 2- unity nie umie wyœwietlaæ w inspektorze dicrionary, wiêc musia³em u¿yæ 2 publiczych
