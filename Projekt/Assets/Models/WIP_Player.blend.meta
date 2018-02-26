@@ -15,6 +15,11 @@ ModelImporter:
     100014: Pants
     100016: //RootNode
     100018: Belt
+    100020: Crystal1
+    100022: Crystal2
+    100024: Crystal3
+    100026: Crystal4
+    100028: HandCrystal
     400000: Body
     400002: Boots
     400004: Coat
@@ -25,6 +30,11 @@ ModelImporter:
     400014: Pants
     400016: //RootNode
     400018: Belt
+    400020: Crystal1
+    400022: Crystal2
+    400024: Crystal3
+    400026: Crystal4
+    400028: HandCrystal
     2300000: Body
     2300002: Boots
     2300004: Coat
@@ -34,6 +44,11 @@ ModelImporter:
     2300012: Mask
     2300014: Pants
     2300016: Belt
+    2300018: Crystal1
+    2300020: Crystal2
+    2300022: Crystal3
+    2300024: Crystal4
+    2300026: HandCrystal
     3300000: Body
     3300002: Boots
     3300004: Coat
@@ -43,6 +58,11 @@ ModelImporter:
     3300012: Mask
     3300014: Pants
     3300016: Belt
+    3300018: Crystal1
+    3300020: Crystal2
+    3300022: Crystal3
+    3300024: Crystal4
+    3300026: HandCrystal
     4300000: Hood
     4300002: Pants
     4300004: Boots
@@ -52,6 +72,11 @@ ModelImporter:
     4300012: Mask
     4300014: Head
     4300016: Belt
+    4300018: Crystal4
+    4300020: Crystal3
+    4300022: Crystal2
+    4300024: Crystal1
+    4300026: HandCrystal
     7400000: Default Take
     9500000: //RootNode
   materials:
