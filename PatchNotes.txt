@@ -1,3 +1,11 @@
+Opis patcha(26.02.2018):
+Pomyœla³em ¿e w sumie nawet jeœli dodam do modelu ma³o lub po prostu poprawiê geometriê to i tak bêdê robi³ update aby
+by³ jakiœ ogólny pogl¹d kszta³towania siê modelu. W obecnym patchu po prostu doda³em pasek i zakry³em nim przerwê
+miêdzy gór¹ a do³em. Wnastêpnym patchu dodam jakieœ podstawowe akcesoria do paska.
+
+Dodano:
+- Pasek (model postaci)
+
 Opis patcha(24.02.2018):
 Po d³u¿szej przerwie postaram siê wróciæ do regularnych patch'y, aczkolwiek modelowanie postaci jest bardzo uci¹¿liwe
 i zrobienie czegokolwiek zajmuje mi nawet kilka godzin, pewnie po jakimœ czasie bêdê robi³ to wszystko szybciej. 
