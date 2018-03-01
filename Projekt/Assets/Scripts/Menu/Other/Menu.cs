@@ -9,7 +9,6 @@ public class Menu : MonoBehaviour {
     //Ten skrypt jest używany do poruszania się po menu,
     //jeżeli chcecie coś dodać do menu to tutaj powinny znajdować się do tego skrypty, 
     //jeżeli nie wymaga to tworzenia innego skryptu
-    //[HideInInspector]
 #if UNITY_EDITOR
     [String("Spell preferences:")]
 #endif
@@ -66,14 +65,6 @@ public class Menu : MonoBehaviour {
     GameObject SpellsCanvas;
     [SerializeField]
     GameObject OptionsCanvas;
-    [SerializeField]
-    GameObject GeneralOptions;
-    [SerializeField]
-    GameObject DisplayOptions;
-    [SerializeField]
-    GameObject SoundOptions;
-    [SerializeField]
-    GameObject ControlsOptions;
     GameObject ActiveCanvas;
 #if UNITY_EDITOR
     [String("Skill trees containers:")]
@@ -86,6 +77,7 @@ public class Menu : MonoBehaviour {
     GameObject OffTreeGameObject;
     [SerializeField]
     GameObject DeffTreeGameObject;
+
 #if UNITY_EDITOR
     [String("Offensive range trees:")]
 #endif
@@ -150,8 +142,33 @@ public class Menu : MonoBehaviour {
     SpellList spells;
     [SerializeField]
     GameObject FailedToText;
+#if UNITY_EDITOR
+    [String("Options elements referemces: ")]
+#endif
+    [SerializeField]
+    GameObject GeneralOptions;
+    [SerializeField]
+    GameObject DisplayOptions;
+    [SerializeField]
+    GameObject SoundOptions;
+    [SerializeField]
+    GameObject ControlsOptions;
+    [SerializeField]
+    GameObject GeneralBtn;
+    [SerializeField]
+    GameObject DisplayBtn;
+    [SerializeField]
+    GameObject SoundBtn;
+    [SerializeField]
+    GameObject ControlsBtn;
+    [SerializeField]
+    Sprite OptionTabBtnOff;
+    [SerializeField]
+    Sprite OptionTabBtnOn;
+    [String("Spell list reference:")]
+    [SerializeField]
+    SpellList spellList;
 
-    
     void Awake()
     {
         HostingCanvas.SetActive(false);
@@ -316,13 +333,21 @@ public class Menu : MonoBehaviour {
     }
 
     //funkcja do konkretnych okienek w opcjach
-    public void OptionsWindow(GameObject choosen)
+    public void OptionsWindow(GameObject choosenTab)
     {
         GeneralOptions.SetActive(false);
         SoundOptions.SetActive(false);
         DisplayOptions.SetActive(false);
         ControlsOptions.SetActive(false);
-        choosen.SetActive(true);
+        choosenTab.SetActive(true);
+        GeneralBtn.GetComponent<Image>().sprite = OptionTabBtnOff;
+        SoundBtn.GetComponent<Image>().sprite = OptionTabBtnOff;
+        DisplayBtn.GetComponent<Image>().sprite = OptionTabBtnOff;
+        ControlsBtn.GetComponent<Image>().sprite = OptionTabBtnOff;
+        if (choosenTab == GeneralOptions) { GeneralBtn.GetComponent<Image>().sprite = OptionTabBtnOn; return; }
+        if (choosenTab == SoundOptions) { SoundBtn.GetComponent<Image>().sprite = OptionTabBtnOn; return; }
+        if (choosenTab == DisplayOptions) { DisplayBtn.GetComponent<Image>().sprite = OptionTabBtnOn; return; }
+        if (choosenTab == ControlsOptions) ControlsBtn.GetComponent<Image>().sprite = OptionTabBtnOn;
     }
 
     //Menu wyboru spelli
@@ -341,6 +366,7 @@ public class Menu : MonoBehaviour {
                 {
                     OffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                     OffButton1.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                    OffButton1.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[i].x, spellList.Scale[i].y, 1);
                 }
             }
         }
@@ -353,6 +379,7 @@ public class Menu : MonoBehaviour {
                 {
                     OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                     OffButton2.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                    OffButton2.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[i].x, spellList.Scale[i].y, 1);
                 }
             }
         }
@@ -365,6 +392,7 @@ public class Menu : MonoBehaviour {
                 {
                     OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                     OffButton3.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                    OffButton3.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[i].x, spellList.Scale[i].y, 1);
                 }
             }
         }
@@ -377,6 +405,7 @@ public class Menu : MonoBehaviour {
                 {
                     DeffButton1.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                     DeffButton1.GetComponentInChildren<Image>().sprite = spells.Images[i];
+                    DeffButton1.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[i].x, spellList.Scale[i].y, 1);
                 }
             }
         }
@@ -452,7 +481,7 @@ public class Menu : MonoBehaviour {
     }
 
     //Funkcje zapisu wybranego spella w wybranym slocie
-    public void Offensive(Button spell)
+    public void Offensive(Button spell, int index)
     {
         if(ChoosingOff.name == "Off1")
         {
@@ -473,6 +502,7 @@ public class Menu : MonoBehaviour {
                 OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
             ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
+            OffButton1.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[index].x, spellList.Scale[index].y, 1);
             TREE.SetActive(false);
         }
         else if (ChoosingOff.name == "Off2")
@@ -494,6 +524,7 @@ public class Menu : MonoBehaviour {
                 OffButton3.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
             ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
+            OffButton2.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[index].x, spellList.Scale[index].y, 1);
             TREE.SetActive(false);
         }
         else if (ChoosingOff.name == "Off3")
@@ -515,10 +546,11 @@ public class Menu : MonoBehaviour {
                 OffButton2.GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             }
             ChoosingOff.transform.localScale = new Vector3(1, 1, 1);
+            OffButton3.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[index].x, spellList.Scale[index].y, 1);
             TREE.SetActive(false);
         }
     }
-    public void Deffensive(Button spell)
+    public void Deffensive(Button spell, int index)
     {
         if(ChoosingDeff.name == "Deff1")
         {
@@ -529,6 +561,7 @@ public class Menu : MonoBehaviour {
             DeffButton1.GetComponentInChildren<Image>().sprite = spell.GetComponent<Image>().sprite;
             Deff1 = spell.name;
             ChoosingDeff.transform.localScale = new Vector3(1, 1, 1);
+            DeffButton1.GetComponentInChildren<Image>().transform.localScale = new Vector3(spellList.Scale[index].x, spellList.Scale[index].y, 1);
             TREE.SetActive(false);
         }
     }
@@ -669,5 +702,17 @@ public class Menu : MonoBehaviour {
     {
         matchPass = Pass.text;
         LobbyScript.MatchPass = matchPass;
+    }
+
+
+
+
+
+
+
+    public  void JustATest(string s)
+    {
+
+        Debug.Log("Yeah it works!" + s);
     }
 }

@@ -7,6 +7,8 @@ public class DeffensiveSpell : MonoBehaviour {
 
     [SerializeField]
     Menu menu;
+    [SerializeField]
+    SpellList spellList;
     //Funkcja do przycisków wyboru slotu
     public void Deffensive()
     {
@@ -18,6 +20,15 @@ public class DeffensiveSpell : MonoBehaviour {
     //Funkcja do przycisków wyboru spella
     public void Spell()
     {
-        menu.Deffensive(gameObject.GetComponent<Button>());
+        int index = 0;
+        for(int i=0; i<spellList.Names.Count; i++)
+        {
+            if(gameObject.name == spellList.Names[i])
+            {
+                index = i;
+                i = spellList.Names.Count;
+            }
+        }
+        menu.Deffensive(gameObject.GetComponent<Button>(), index);
     }
 }

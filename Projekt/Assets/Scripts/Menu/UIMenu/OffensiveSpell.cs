@@ -5,6 +5,8 @@ public class OffensiveSpell : MonoBehaviour {
 
     [SerializeField]
     Menu menu;
+    [SerializeField]
+    SpellList spellList;
     //Funkcja do przycisków wyboru slotu
 	public void Offensive()
     {
@@ -17,6 +19,15 @@ public class OffensiveSpell : MonoBehaviour {
     //Funkcja do przycisków wyboru spella
     public void Spell()
     {
-        menu.Offensive(gameObject.GetComponent<Button>());
+        int index = 0;
+        for (int i = 0; i < spellList.Names.Count; i++)
+        {
+            if (gameObject.name == spellList.Names[i])
+            {
+                index = i;
+                i = spellList.Names.Count;
+            }
+        }
+        menu.Offensive(gameObject.GetComponent<Button>(), index);
     }
 }
