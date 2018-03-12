@@ -1,0 +1,243 @@
+fileFormatVersion: 2
+guid: 94e1def680dbe6b429545a5f0219ea69
+timeCreated: 1520183749
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Cube
+    100004: Cube_001
+    100006: Cube_002
+    100008: Cube_003
+    100010: Cube_004
+    100012: Cube_005
+    100014: Cube_006
+    100016: Cube_007
+    100018: Plane
+    100020: Plane_001
+    100022: Plane_002
+    100024: Plane_003
+    100026: Plane_004
+    100028: Plane_005
+    100030: Plane_006
+    100032: Plane_007
+    100034: Plane_008
+    100036: Plane_009
+    100038: Plane_010
+    100040: Plane_011
+    100042: Plane_012
+    100044: Plane_013
+    100046: Plane_014
+    100048: Plane_015
+    100050: Plane_016
+    100052: Plane_017
+    100054: Tent
+    100056: TentInside
+    100058: TentOutside
+    400000: //RootNode
+    400002: Cube
+    400004: Cube_001
+    400006: Cube_002
+    400008: Cube_003
+    400010: Cube_004
+    400012: Cube_005
+    400014: Cube_006
+    400016: Cube_007
+    400018: Plane
+    400020: Plane_001
+    400022: Plane_002
+    400024: Plane_003
+    400026: Plane_004
+    400028: Plane_005
+    400030: Plane_006
+    400032: Plane_007
+    400034: Plane_008
+    400036: Plane_009
+    400038: Plane_010
+    400040: Plane_011
+    400042: Plane_012
+    400044: Plane_013
+    400046: Plane_014
+    400048: Plane_015
+    400050: Plane_016
+    400052: Plane_017
+    400054: Tent
+    400056: TentInside
+    400058: TentOutside
+    2300000: Cube
+    2300002: Cube_001
+    2300004: Cube_002
+    2300006: Cube_003
+    2300008: Cube_004
+    2300010: Cube_005
+    2300012: Cube_006
+    2300014: Cube_007
+    2300016: Plane
+    2300018: Plane_001
+    2300020: Plane_002
+    2300022: Plane_003
+    2300024: Plane_004
+    2300026: Plane_005
+    2300028: Plane_006
+    2300030: Plane_007
+    2300032: Plane_008
+    2300034: Plane_009
+    2300036: Plane_010
+    2300038: Plane_011
+    2300040: Plane_012
+    2300042: Plane_013
+    2300044: Plane_014
+    2300046: Plane_015
+    2300048: Plane_016
+    2300050: Plane_017
+    2300052: Tent
+    2300054: //RootNode
+    2300056: TentInside
+    2300058: TentOutside
+    3300000: Cube
+    3300002: Cube_001
+    3300004: Cube_002
+    3300006: Cube_003
+    3300008: Cube_004
+    3300010: Cube_005
+    3300012: Cube_006
+    3300014: Cube_007
+    3300016: Plane
+    3300018: Plane_001
+    3300020: Plane_002
+    3300022: Plane_003
+    3300024: Plane_004
+    3300026: Plane_005
+    3300028: Plane_006
+    3300030: Plane_007
+    3300032: Plane_008
+    3300034: Plane_009
+    3300036: Plane_010
+    3300038: Plane_011
+    3300040: Plane_012
+    3300042: Plane_013
+    3300044: Plane_014
+    3300046: Plane_015
+    3300048: Plane_016
+    3300050: Plane_017
+    3300052: Tent
+    3300054: //RootNode
+    3300056: TentInside
+    3300058: TentOutside
+    4300000: Cube_007
+    4300002: Cube_006
+    4300004: Cube_005
+    4300006: Cube_004
+    4300008: Cube_003
+    4300010: Cube_002
+    4300012: Cube_001
+    4300014: Cube
+    4300016: Plane_017
+    4300018: Plane_016
+    4300020: Plane_015
+    4300022: Plane_014
+    4300024: Plane_013
+    4300026: Plane_012
+    4300028: Plane_011
+    4300030: Plane_010
+    4300032: Plane_009
+    4300034: Plane_008
+    4300036: Plane_007
+    4300038: Plane_006
+    4300040: Plane_005
+    4300042: Plane_004
+    4300044: Plane_003
+    4300046: Plane_002
+    4300048: Plane_001
+    4300050: Plane
+    4300052: Tent
+    4300054: TentInside
+    4300056: TentOutside
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unnamed
+    second: {fileID: 2100000, guid: 75e148a91465bd2428582f7c1dcc2c27, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,3 +1,12 @@
+Opis patcha(11.03)
+Rozdzielczoœci tekstury dla namiotu.
+
+Opis patcha(11.03)
+Dodana tektura dla namiotu.
+
+Opis patcha(10.03)
+Pierwsza wersja namiotu.
+
 Opis patcha(26.02.2018):
 Pomyœla³em ¿e w sumie nawet jeœli dodam do modelu ma³o lub po prostu poprawiê geometriê to i tak bêdê robi³ update aby
 by³ jakiœ ogólny pogl¹d kszta³towania siê modelu. W obecnym patchu po prostu doda³em pasek i zakry³em nim przerwê

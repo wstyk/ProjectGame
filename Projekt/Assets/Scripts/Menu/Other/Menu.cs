@@ -165,7 +165,9 @@ public class Menu : MonoBehaviour {
     Sprite OptionTabBtnOff;
     [SerializeField]
     Sprite OptionTabBtnOn;
+#if UNITY_EDITOR
     [String("Spell list reference:")]
+#endif
     [SerializeField]
     SpellList spellList;
 
